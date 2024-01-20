@@ -1,0 +1,21 @@
+import React from 'react'
+import styled from 'styled-components'
+
+import Navbar from './Navbar.js'
+import Feed from './Feed.js'
+
+const Main = () => {
+  return (
+    <Container>
+      <Navbar />
+      <Feed />
+    </Container>
+  )
+}
+
+export default Main
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+`

@@ -1,0 +1,100 @@
+import React, {useCallback, useState, useEffect} from 'react'
+import styled from 'styled-components'
+
+import OptionInput from './OptionInput.js'
+
+const CreateOptions = ({newOptions}) => {
+  const [options, setOptions] = useState([
+    {
+      id: 1,
+      description: "",
+      votes: 0,
+    },
+    {
+      id: 2,
+      description: "",
+      votes: 0
+    }
+  ])
+
+  // actualiza el estado miestras se escribe
+  const updateOptions = useCallback((newOption, id) => {
+    const newValues = options.map(option => option.id === id ? newOption : option)
+    setOptions(() => newValues)
+    console.log(newOption, id)
+  }, [])
+
+  useEffect(() => {
+    newOptions(options)
+  }, [options, newOptions])
+
+
+  // agrega nuevos inputs
+  const addMoreOptions = () => {
+    let lastId = options.at(-1).id
+    setOptions([...options, {id: lastId + 1, description: "", votes: 0}])
+  }
+
+
+  const deleteOption = (id) => {
+    const stateFiltered = options.filter(option => option.id !== id)
+    setOptions(stateFiltered)
+  }
+
+  const showOptions = options.map((option, index) => {
+    if (index > 1) {
+      return (
+        <OptionDelete key={option.id}>
+          <OptionInput data={option} updateOption={updateOptions} />
+          <BtnDelete onClick={() => deleteOption(option.id)} >X</BtnDelete>
+        </OptionDelete>
+      )
+    } else {
+      return (
+        <OptionInput key={option.id} data={option} updateOption={updateOptions} />
+      )
+    }
+  })
+
+  return (
+    <Container>
+      {showOptions}
+
+      <BtnAdd disabled={options.length >= 6} onClick={() => addMoreOptions()}>Add</BtnAdd>
+    </Container>
+  )
+}
+
+export default CreateOptions
+
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+
+
+const BtnAdd = styled.button`
+  align-self: center;
+  padding: 5px 20px;
+  background-color: rgba(255,255,255, 1);
+  border: 1px solid rgba(0,0,0,0.2);
+  border-radius: 5px;
+
+  
+`
+
+const OptionDelete = styled.div`
+  width: 100%;
+  display: flex;
+`
+
+const BtnDelete = styled.button`
+  width: 20%;
+  border: none;
+  background-color: rgb(255,255,255);
+
+  &:hover {
+    background-color: rgba(0,0,0,0.1);
+  }
+`
