@@ -1,0 +1,114 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "John Doe"
+    },
+    {
+      "id": 2,
+      "name": "Alice Johnson"
+    },
+    {
+      "id": 3,
+      "name": "Bob Smith"
+    },
+    {
+      "id": 4,
+      "name": "Emily Davis"
+    },
+    {
+      "id": 5,
+      "name": "Carlos Rodriguez"
+    },
+    {
+      "id": 6,
+      "name": "Sophie Turner"
+    },
+    {
+      "id": 7,
+      "name": "Daniel Lee"
+    },
+    {
+      "id": 8,
+      "name": "Olivia White"
+    },
+    {
+      "id": 9,
+      "name": "Michael Brown"
+    },
+    {
+      "id": 10,
+      "name": "Isabella Martinez"
+    }
+  ],
+  "posts": [
+    {
+      "id": 1,
+      "user_id": 1,
+      "date": {
+        "dia": 23,
+        "mes": 1,
+        "anio": 2024,
+        "hora": 10,
+        "min": 23
+      },
+      "description": "lorem ipsum dolor met",
+      "total_votes": 443,
+      "voters": [
+        {
+          "id_user": 1,
+          "id_option": 2
+        },
+        {
+          "id_user": 3,
+          "id_option": 2
+        },
+        {
+          "id_user": 6,
+          "id_option": 1
+        }
+      ],
+      "options": [
+        {
+          "id": 1,
+          "description": "Option 1",
+          "votes": 189
+        },
+        {
+          "id": 2,
+          "description": "option 2",
+          "votes": 234
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "user_id": 1,
+      "date": {
+        "dia": 23,
+        "mes": 1,
+        "anio": 2024,
+        "hora": 10,
+        "min": 40
+      },
+      "description": "lorem ipsum dolor met",
+      "total_votes": 503,
+      "voters": [
+        1,
+        2
+      ],
+      "options": [
+        {
+          "id": 1,
+          "description": "Option 1",
+          "votes": 203
+        },
+        {
+          "id": 2,
+          "description": "option 2",
+          "votes": 300
+        }
+      ]
+    }
+  ]
+}

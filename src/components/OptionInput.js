@@ -43,10 +43,11 @@ const Option = styled.input`
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
 `
 
 const Counter = styled.span`
   align-self: flex-end;
-  color: rgba(0, 0, 0, 0.3);
-  font-size: 0.8em;
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 0.75em;
 `

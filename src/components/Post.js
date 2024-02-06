@@ -1,32 +1,45 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import styled from 'styled-components'
+
+import {useSelector} from 'react-redux'
 
 import {ReactComponent as Arrow} from '../assets/arrows.svg'
 import {ReactComponent as Heart} from '../assets/heart.svg'
 
 const Post = () => {
 
-  console.log("post")
+  const [post, setPost] = useState(useSelector(state => state.posts[0]))
+  const [user, setUser] = useState(useSelector(state => state.users).find(user => user.id === post.user_id))
+
+  const voted = post.voters.find(option => option.id_user === user.id)
+
+  const generateOptions = () => {
+    if (voted !== undefined) {
+      return post.options.map(option => option.id === voted.id_option ? <OptionVoted>{option.description}&#9745;</OptionVoted>: <OptionVoted>{option.description}</OptionVoted>)
+    } else {
+      return post.options.map(option => <Option>{option.description}</Option>)
+    }
+  }
+
 
   return (
     <Container>
       <Profile>
         <Photo />
-        <Name href="!#">John Doe</Name>
+        <Name href="!#">{user.name}</Name>
       </Profile>
 
       <Description>
-        Lorem impsum dolor met.
+        {post.description}
       </Description>
 
       <Options>
-        <Option>Option n1</Option>
-        <Option>Option n2</Option>
+        {generateOptions()}
       </Options>
 
       <Info>
-        <p>1.000 votos</p>
-        <p>19/12/2023 15:00</p>
+        <p>{post.total_votes}</p>
+        <p>`{post.date.dia}/{post.date.mes}/{post.date.anio} {post.date.hora}:{post.date.min}`</p>
       </Info>
 
       <Buttons>
@@ -81,12 +94,33 @@ const Options = styled.div`
 
 `
 
-const Option = styled.div`
+const OptionVoted = styled.div`
   border: 1px solid rgba(0,0,0,0.2);
   border-radius: 5px;
   margin-top: 5px;
   padding: 5px;
   font-size: 0.9em;
+
+  border: 1px solid #000;
+  
+  background: linear-gradient(to right, rgba(0,0,0,0.4) 75%, rgb(255,255,255) 0%);
+`
+
+
+const Option = styled.div`
+  border-radius: 5px;
+  margin-top: 5px;
+  padding: 5px;
+  font-size: 0.9em;
+
+  border: 2px solid rgba(56, 23, 122, 0.6);
+
+  &:hover {
+    border:2px solid rgb(56, 23, 122);
+    cursor: pointer;
+    background-color: rgba(0,0,0,0.05);
+  
+  }
 `
 
 const Info = styled.div`

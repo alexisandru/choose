@@ -1,6 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit'
+import data from '../assets/data.json'
 
-const initialState = []
+const initialState = data.posts
 
 const postsSlice = createSlice({
   name: "posts",

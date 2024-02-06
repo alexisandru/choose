@@ -26,9 +26,6 @@ const CreatePost = () => {
     setPost({...post, description: e.target.value});
   }
 
-  const foo = useCallback((newThings) => {
-    setPost(prev => ({...prev, options: newThings}))
-  }, [])
 
   const updateOptions = useCallback((newOptions) => {
     setPost(prev => {return {...prev, options: newOptions}})
@@ -92,10 +89,21 @@ const Description = styled.textarea`
 
 const BtnPost = styled.button`
   padding: 5px 20px;
-  background-color: rgba(255,255,255, 1);
   border: 1px solid rgba(0,0,0,0.2);
   border-radius: 5px;
-  
+  background-color: rgb(0, 48, 73);
+  color: rgb(255,255,255);
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgba(0, 48, 73, 0.95);
+  }
+
+  &:disabled {
+    cursor: auto;
+    background-color: rgba(0, 48, 73, 0.5);
+  }
+
 `
 
 const Photo = styled.div`
