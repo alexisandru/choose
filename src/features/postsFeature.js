@@ -22,11 +22,26 @@ const postsSlice = createSlice({
 
       }
 
+    },
+    addVotePost: (state, action) => {
+      const updatedState = state.map(post => {
+        if (post.id === action.payload.id) {
+          return {
+            ...post,
+            total_votes: post.total_votes + 1,
+            voters: [...post.voters, action.payload.newVote]
+          }
+        } else {
+          return post
+        }
+      })
+
+      return updatedState
     }
   }
 }
 )
 
-export const {addPost} = postsSlice.actions
+export const {addPost, addVotePost} = postsSlice.actions
 
 export default postsSlice.reducer

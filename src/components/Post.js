@@ -1,23 +1,31 @@
 import React, {useState, useEffect} from 'react'
 import styled from 'styled-components'
 
-import {useSelector} from 'react-redux'
+import {useSelector, useDispatch} from 'react-redux'
+
+import {addVotePost} from '../features/postsFeature.js'
 
 import {ReactComponent as Arrow} from '../assets/arrows.svg'
 import {ReactComponent as Heart} from '../assets/heart.svg'
 
 const Post = () => {
 
-  const [post, setPost] = useState(useSelector(state => state.posts[0]))
-  const [user, setUser] = useState(useSelector(state => state.users).find(user => user.id === post.user_id))
+  const dispatch = useDispatch()
+
+  const post = useSelector(state => state.posts[0])
+  const user = useSelector(state => state.users).find(user => user.id === post.user_id)
 
   const voted = post.voters.find(option => option.id_user === user.id)
 
+
   const generateOptions = () => {
     if (voted !== undefined) {
-      return post.options.map(option => option.id === voted.id_option ? <OptionVoted>{option.description}&#9745;</OptionVoted>: <OptionVoted>{option.description}</OptionVoted>)
+      return post.options.map(option => {
+        const percentage = (100 * option.votes) / post.total_votes
+        return <OptionVoted percentage={percentage}>{option.description}{option.id === voted.id_option ? <VotedSign>&#9745;</VotedSign> : <></>}<Percentage>{Math.round(percentage)}%</Percentage></OptionVoted>
+      })
     } else {
-      return post.options.map(option => <Option>{option.description}</Option>)
+      return post.options.map(option => <Option onClick={() => dispatch(addVotePost({id: post.id, newVote: {id_user: user.id, id_option: option.id}}))}>{option.description}</Option>)
     }
   }
 
@@ -59,6 +67,13 @@ const Post = () => {
 
 export default Post
 
+const Percentage = styled.span`
+  margin-left: auto;
+`
+
+const VotedSign = styled.span`
+  margin-left: 10px;
+`
 
 const Container = styled.div`
   width: 40%;
@@ -101,11 +116,12 @@ const OptionVoted = styled.div`
   padding: 5px;
   font-size: 0.9em;
 
-  border: 1px solid #000;
+  border: 2px solid rgba(56, 23, 122, 0.5);
+  display: flex;
+  align-items: center;
   
-  background: linear-gradient(to right, rgba(0,0,0,0.4) 75%, rgb(255,255,255) 0%);
+ background: linear-gradient(to right, rgba(56, 23, 122, 0.2) ${props => props.percentage}%, rgb(255, 255, 255) 0);
 `
-
 
 const Option = styled.div`
   border-radius: 5px;
@@ -116,10 +132,9 @@ const Option = styled.div`
   border: 2px solid rgba(56, 23, 122, 0.6);
 
   &:hover {
-    border:2px solid rgb(56, 23, 122);
+    border: 2px solid rgb(56, 23, 122);
     cursor: pointer;
-    background-color: rgba(0,0,0,0.05);
-  
+    background-color: rgba(0, 0, 0, 0.05);
   }
 `
 
@@ -129,37 +144,37 @@ const Info = styled.div`
   justify-content: space-between;
   font-size: 0.8em;
   margin-top: 10px;
-  color: rgba(0,0,0,0.7);
+  color: rgba(0, 0, 0, 0.7);
 `
 
 const Buttons = styled.div`
-  display: flex;
-  justify-content: space-evenly;
-  margin-top: 5px;
+display: flex;
+justify-content: space-evenly;
+margin-top: 5px;
 `
 
 const Button = styled.div`
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  
+display: flex;
+align-items: center;
+cursor: pointer;
+
 `
 
 const HeartIcon = styled(Heart)`
-  width: 26px;
-  height: auto;
-  fill: ${props => props.active ? 'red' : ''};
-  &>path {
-    stroke: ${props => props.active ? 'red' : ''};
-  }
+width: 26px;
+height: auto;
+fill: ${props => props.active ? 'red' : ''};
+  &> path {
+  stroke: ${props => props.active ? 'red' : ''};
+}
 `
 
 const ArrowIcon = styled(Arrow)`
-  width: 26px;
-  height: auto;
-  &>g>path {
-    stroke: ${props => props.active ? 'blue' : ''};
-  }
+width: 26px;
+height: auto;
+  &> g > path {
+  stroke: ${props => props.active ? 'blue' : ''};
+}
 `
 
 

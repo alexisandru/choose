@@ -53,10 +53,10 @@
         "min": 23
       },
       "description": "lorem ipsum dolor met",
-      "total_votes": 443,
+      "total_votes": 3,
       "voters": [
         {
-          "id_user": 1,
+          "id_user": 2,
           "id_option": 2
         },
         {
@@ -72,12 +72,12 @@
         {
           "id": 1,
           "description": "Option 1",
-          "votes": 189
+          "votes": 1
         },
         {
           "id": 2,
           "description": "option 2",
-          "votes": 234
+          "votes": 2
         }
       ]
     },
