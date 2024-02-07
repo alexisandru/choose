@@ -3,8 +3,8 @@ import styled from 'styled-components'
 
 import {useSelector, useDispatch} from 'react-redux'
 
-import {addVotePost, addLike} from '../features/postsFeature.js'
-import {addLikeUser} from '../features/usersFeature.js'
+import {addVotePost, addLike, addDislike} from '../features/postsFeature.js'
+import {addLikeUser, addDislikeUser} from '../features/usersFeature.js'
 
 import {ReactComponent as Dislike} from '../assets/dislike.svg'
 import {ReactComponent as Like} from '../assets/like.svg'
@@ -35,6 +35,11 @@ const Post = () => {
     dispatch(addLikeUser({id_post: post.id, id_user: user.id}))
   }
 
+  const dislikeBehavior = () => {
+    dispatch(addDislike({id_post: post.id, id_user: user.id}))
+    dispatch(addDislikeUser({id_post: post.id, id_user: user.id}))
+  }
+
   return (
     <Container>
       <Profile>
@@ -60,8 +65,8 @@ const Post = () => {
           <LikeIcon active={post.likes.includes(user.id)} />
           {post.likes.length}
         </Button>
-        <Button>
-          <DislikeIcon active={false} />
+        <Button onClick={() => dislikeBehavior()}>
+          <DislikeIcon active={post.dislikes.includes(user.id)} />
           {post.dislikes.length}
         </Button>
       </Buttons>
@@ -177,7 +182,7 @@ fill: ${props => props.active ? 'rgba(56, 23, 122, 0.5)' : ''};
 const DislikeIcon = styled(Dislike)`
 width: 23px;
 height: auto;
-  &> g > path {
+  &>  path {
   stroke: ${props => props.active ? 'blue' : ''};
 }
 `
