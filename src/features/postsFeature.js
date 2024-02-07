@@ -26,9 +26,16 @@ const postsSlice = createSlice({
     addVotePost: (state, action) => {
       const updatedState = state.map(post => {
         if (post.id === action.payload.id) {
+
+          const optionVotesUpdated = post.options.map(option => option.id === action.payload.newVote.id_option
+            ? {...option, votes: option.votes + 1}
+            : option
+          )
+
           return {
             ...post,
             total_votes: post.total_votes + 1,
+            options: optionVotesUpdated,
             voters: [...post.voters, action.payload.newVote]
           }
         } else {
