@@ -1,12 +1,13 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react'
 import styled from 'styled-components'
 
 import {useSelector, useDispatch} from 'react-redux'
 
-import {addVotePost} from '../features/postsFeature.js'
+import {addVotePost, addLike} from '../features/postsFeature.js'
+import {addLikeUser} from '../features/usersFeature.js'
 
-import {ReactComponent as Arrow} from '../assets/arrows.svg'
-import {ReactComponent as Heart} from '../assets/heart.svg'
+import {ReactComponent as Dislike} from '../assets/dislike.svg'
+import {ReactComponent as Like} from '../assets/like.svg'
 
 const Post = () => {
 
@@ -29,6 +30,10 @@ const Post = () => {
     }
   }
 
+  const likeBehavior = () => {
+    dispatch(addLike({id_post: post.id, id_user: user.id}))
+    dispatch(addLikeUser({id_post: post.id, id_user: user.id}))
+  }
 
   return (
     <Container>
@@ -47,17 +52,17 @@ const Post = () => {
 
       <Info>
         <p>{post.total_votes}</p>
-        <p>`{post.date.dia}/{post.date.mes}/{post.date.anio} {post.date.hora}:{post.date.min}`</p>
+        <p>{post.date.dia}/{post.date.mes}/{post.date.anio} {post.date.hora}:{post.date.min}</p>
       </Info>
 
       <Buttons>
-        <Button>
-          <HeartIcon active={false} />
-          Like
+        <Button onClick={() => likeBehavior()}>
+          <LikeIcon active={post.likes.includes(user.id)} />
+          {post.likes.length}
         </Button>
         <Button>
-          <ArrowIcon active={false} />
-          Repost
+          <DislikeIcon active={false} />
+          {post.dislikes.length}
         </Button>
       </Buttons>
 
@@ -160,17 +165,17 @@ cursor: pointer;
 
 `
 
-const HeartIcon = styled(Heart)`
-width: 26px;
+const LikeIcon = styled(Like)`
+width: 23px;
 height: auto;
-fill: ${props => props.active ? 'red' : ''};
+fill: ${props => props.active ? 'rgba(56, 23, 122, 0.5)' : ''};
   &> path {
-  stroke: ${props => props.active ? 'red' : ''};
+  stroke: ${props => props.active ? 'rgba(56, 23, 122, 0.6)' : ''};
 }
 `
 
-const ArrowIcon = styled(Arrow)`
-width: 26px;
+const DislikeIcon = styled(Dislike)`
+width: 23px;
 height: auto;
   &> g > path {
   stroke: ${props => props.active ? 'blue' : ''};

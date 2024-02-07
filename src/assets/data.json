@@ -1,46 +1,4 @@
 {
-  "users": [
-    {
-      "id": 1,
-      "name": "John Doe"
-    },
-    {
-      "id": 2,
-      "name": "Alice Johnson"
-    },
-    {
-      "id": 3,
-      "name": "Bob Smith"
-    },
-    {
-      "id": 4,
-      "name": "Emily Davis"
-    },
-    {
-      "id": 5,
-      "name": "Carlos Rodriguez"
-    },
-    {
-      "id": 6,
-      "name": "Sophie Turner"
-    },
-    {
-      "id": 7,
-      "name": "Daniel Lee"
-    },
-    {
-      "id": 8,
-      "name": "Olivia White"
-    },
-    {
-      "id": 9,
-      "name": "Michael Brown"
-    },
-    {
-      "id": 10,
-      "name": "Isabella Martinez"
-    }
-  ],
   "posts": [
     {
       "id": 1,
@@ -54,6 +12,19 @@
       },
       "description": "lorem ipsum dolor met",
       "total_votes": 3,
+      "likes": [
+        1,
+        2,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "dislikes": [
+        3,
+        10
+      ],
       "voters": [
         {
           "id_user": 2,
@@ -93,9 +64,32 @@
       },
       "description": "lorem ipsum dolor met",
       "total_votes": 503,
-      "voters": [
+      "likes": [
+        3,
+        4,
+        5,
+        7,
+        8
+      ],
+      "dislikes": [
         1,
-        2
+        2,
+        6,
+        9
+      ],
+      "voters": [
+        {
+          "id_user": 3,
+          "id_option": 1
+        },
+        {
+          "id_user": 10,
+          "id_option": 2
+        },
+        {
+          "id_user": 9,
+          "id_option": 1
+        }
       ],
       "options": [
         {

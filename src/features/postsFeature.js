@@ -44,11 +44,57 @@ const postsSlice = createSlice({
       })
 
       return updatedState
+    },
+    addLike: (state, action) => {
+      const updatedState = state.map(post => {
+        const {id_post, id_user} = action.payload
+        if (post.id === id_post) {
+          if (post.likes.includes(id_user)) {
+
+            const likesUpdated = post.likes.filter(like => like !== id_user)
+            return {
+              ...post,
+              likes: likesUpdated
+            }
+
+          } else {
+
+            const dislikesUpdated = post.dislikes.filter(dislike => dislike !== id_user)
+            return {
+              ...post,
+              likes: [...post.likes, id_user],
+              dislike: dislikesUpdated
+            }
+
+          }
+        } else {
+          return post
+        }
+      })
+
+      return updatedState
+    },
+    addDislike: (state, action) => {
+      const updatedState = state.map(post => {
+        if (post.id === action.payload.id_post) {
+          const likesUpdated = post.likes.filter(like => like !== action.payload.id_user)
+
+          return {
+            ...post,
+            likes: likesUpdated,
+            dislikes: [...post.dislikes, action.payload.id_user]
+          }
+        } else {
+          return post
+        }
+      })
+
+      return updatedState
     }
   }
 }
 )
 
-export const {addPost, addVotePost} = postsSlice.actions
+export const {addPost, addVotePost, addLike} = postsSlice.actions
 
 export default postsSlice.reducer

@@ -1,0 +1,92 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "John Doe",
+      "likes": [
+        1
+      ],
+      "dislikes": [
+        2
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Alice Johnson",
+      "likes": [
+        1
+      ],
+      "dislikes": [
+        2
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Bob Smith",
+      "likes": [
+        2
+      ],
+      "dislikes": [
+        1
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Emily Davis",
+      "likes": [
+        2
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Carlos Rodriguez",
+      "likes": [
+        1,
+        2
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Sophie Turner",
+      "likes": [
+        1
+      ],
+      "dislikes": [
+        2
+      ]
+    },
+    {
+      "id": 7,
+      "name": "Daniel Lee",
+      "likes": [
+        1,
+        2
+      ]
+    },
+    {
+      "id": 8,
+      "name": "Olivia White",
+      "likes": [
+        2,
+        1
+      ]
+    },
+    {
+      "id": 9,
+      "name": "Michael Brown",
+      "likes": [
+        1
+      ],
+      "dislikes": [
+        2
+      ]
+    },
+    {
+      "id": 10,
+      "name": "Isabella Martinez",
+      "dislike": [
+        1
+      ]
+    }
+  ]
+}
