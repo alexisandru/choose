@@ -4,7 +4,7 @@ import styled from 'styled-components'
 const Navbar = () => {
   return (
     <Container>
-      <a href="#!">Choose</a>
+      <Title href="#!">Choose</Title>
       <a href="#!">Alexis</a>
     </Container>
   )
@@ -13,10 +13,19 @@ const Navbar = () => {
 export default Navbar
 
 const Container = styled.div`
-  background-color: rgba(0,0,0,0.2);
   display: flex;
   justify-content: space-between;
 
-  padding: 10px 20px;
+  padding: 10px 30px;
 `
+
+const Title = styled.a`
+  font-family: 'Dancing Script', cursive;
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 2.5em;
+  color: rgba(0,0,0,0.9);
+
+`
+
 

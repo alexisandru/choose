@@ -3,12 +3,13 @@ import styled from 'styled-components'
 
 import Navbar from './Navbar.js'
 import Feed from './Feed.js'
+import Profile from './Profile.js'
 
 const Main = () => {
   return (
     <Container>
       <Navbar />
-      <Feed />
+      <Profile />
     </Container>
   )
 }
