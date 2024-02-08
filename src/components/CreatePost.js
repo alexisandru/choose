@@ -91,17 +91,17 @@ const BtnPost = styled.button`
   padding: 5px 20px;
   border: 1px solid rgba(0,0,0,0.2);
   border-radius: 5px;
-  background-color: rgb(0, 48, 73);
+  background-color: rgba(56, 23, 122, 0.8);
   color: rgb(255,255,255);
   cursor: pointer;
 
   &:hover {
-    background-color: rgba(0, 48, 73, 0.95);
+    background-color: rgba(56, 23, 122, 0.7);
   }
 
   &:disabled {
     cursor: auto;
-    background-color: rgba(0, 48, 73, 0.5);
+    background-color: rgba(56, 23, 122, 0.2);
   }
 
 `
