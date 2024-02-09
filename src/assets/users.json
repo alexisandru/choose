@@ -3,90 +3,128 @@
     {
       "id": 1,
       "name": "John Doe",
+      "followers": [
+        3,
+        5,
+        6,
+        9,
+        10
+      ],
+      "following": [
+        4,
+        6,
+        8
+      ],
       "likes": [
-        1
+        1,
+        7,
+        9,
+        10
       ],
       "dislikes": [
-        2
+        5,
+        6
       ]
     },
     {
       "id": 2,
       "name": "Alice Johnson",
       "likes": [
-        1
+        1,
+        7
       ],
       "dislikes": [
-        2
+        2,
+        6,
+        8
       ]
     },
     {
       "id": 3,
       "name": "Bob Smith",
       "likes": [
-        2
+        1,
+        2,
+        9
       ],
       "dislikes": [
-        1
+        4,
+        5,
+        6
       ]
     },
     {
       "id": 4,
       "name": "Emily Davis",
       "likes": [
-        2
+        1,
+        7
       ]
     },
     {
       "id": 5,
       "name": "Carlos Rodriguez",
       "likes": [
-        1,
-        2
+        2,
+        4
+      ],
+      "dislikes": [
+        1
       ]
     },
     {
       "id": 6,
       "name": "Sophie Turner",
       "likes": [
-        1
+        10
       ],
       "dislikes": [
-        2
+        7
       ]
     },
     {
       "id": 7,
       "name": "Daniel Lee",
       "likes": [
-        1,
-        2
+        5
+      ],
+      "dislikes": [
+        6,
+        8,
+        9,
+        10
       ]
     },
     {
       "id": 8,
       "name": "Olivia White",
-      "likes": [
-        2,
-        1
+      "likes": [],
+      "dislikes": [
+        4,
+        7,
+        10
       ]
     },
     {
       "id": 9,
       "name": "Michael Brown",
       "likes": [
-        1
+        8
       ],
       "dislikes": [
-        2
+        10
       ]
     },
     {
       "id": 10,
       "name": "Isabella Martinez",
-      "dislike": [
-        1
-      ]
+      "like": [
+        4,
+        5,
+        6,
+        8
+      ],
+      "dislike": []
     }
   ]
 }

@@ -24,6 +24,8 @@ const ReactionButtons = ({id_user, id_post}) => {
     dispatch(addDislikeUser({id_post, id_user}))
   }
 
+  console.log("like", post.likes.includes(id_user))
+
   return (
     <Container>
       <Button onClick={() => likeBehavior()}>
