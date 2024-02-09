@@ -14,7 +14,8 @@ const Profile = () => {
   const [followed, setFollowed] = useState(true)
   const [sectionActived, setSectionActived] = useState(1)
 
-  const user = useSelector(state => state.users).find(user => user.id === 1)
+  const currentUser = useSelector(state => state.users.actual_user)
+  const user = useSelector(state => state.users.users).find(user => user.id === currentUser)
   const posts = useSelector(state => state.posts)
 
   const changeSection = (id) => {

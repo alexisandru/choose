@@ -1,14 +1,17 @@
 import {createSlice} from '@reduxjs/toolkit'
 import data from '../assets/users.json'
 
-const initialState = data.users
+const initialState = {
+  actual_user: 1,
+  users: data.users
+}
 
 const usersSlice = createSlice({
   name: "users",
   initialState,
   reducers: {
     addLikeUser: (state, action) => {
-      const updatedState = state.map(user => {
+      const updatedState = state.users.map(user => {
         const {id_post, id_user} = action.payload
         if (user.id === id_user) {
           if (user.likes.includes(id_post)) {
@@ -35,7 +38,7 @@ const usersSlice = createSlice({
       return updatedState
     },
     addDislikeUser: (state, action) => {
-      const updatedState = state.map(user => {
+      const updatedState = state.users.map(user => {
         const {id_post, id_user} = action.payload
         if (user.id === id_user) {
           if (user.dislikes.includes(id_post)) {

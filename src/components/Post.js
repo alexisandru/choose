@@ -12,9 +12,10 @@ import ReactionButtons from './ReactionButtons.js'
 const Post = ({post}) => {
 
   const dispatch = useDispatch()
-  const user = useSelector(state => state.users).find(user => user.id === post.user_id)
+  const user = useSelector(state => state.users.users).find(user => user.id === post.user_id)
+  const currentUser = useSelector(state => state.users.actual_user)
 
-  const voted = post.voters.find(option => option.id_user === user.id)
+  const voted = post.voters.find(option => option.id_user === currentUser)
 
   const generateOptions = () => {
     if (voted !== undefined) {
@@ -23,7 +24,7 @@ const Post = ({post}) => {
         return <OptionVoted key={option.id} $percentage={percentage}>{option.description}{option.id === voted.id_option ? <VotedSign>&#9745;</VotedSign> : <></>}<Percentage>{Math.round(percentage)}%</Percentage></OptionVoted>
       })
     } else {
-      return post.options.map(option => <Option key={option.id} onClick={() => dispatch(addVotePost({id: post.id, newVote: {id_user: user.id, id_option: option.id}}))}>{option.description}</Option>)
+      return post.options.map(option => <Option key={option.id} onClick={() => dispatch(addVotePost({id: post.id, newVote: {id_user: currentUser, id_option: option.id}}))}>{option.description}</Option>)
     }
   }
 
@@ -49,7 +50,7 @@ const Post = ({post}) => {
         <p>{post.date.day}/{post.date.month}/{post.date.year} {post.date.hour}:{post.date.minutes}</p>
       </Info>
 
-      <ReactionButtons id_user={user.id} id_post={post.id} />
+      <ReactionButtons id_user={currentUser} id_post={post.id} />
 
     </Container>
   )
