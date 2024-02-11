@@ -3,17 +3,24 @@ import styled from 'styled-components'
 
 import CreateOptions from './CreateOptions.js'
 
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import {addPost} from '../features/postsFeature.js'
 
 const CreatePost = () => {
   const textareaRef = useRef()
   const dispatch = useDispatch()
 
+  const currentUser = useSelector(state => state.users.actual_user)
 
   const [post, setPost] = useState({
+    user_id: currentUser,
     description: "",
-    options: []
+    options: [],
+    likes: [],
+    date: {},
+    dislikes: [],
+    voters: [],
+    total_votes: 0
   })
 
   const changeHeight = () => {
@@ -33,6 +40,31 @@ const CreatePost = () => {
 
   const checkIsValid = post.options.some(element => element.description === "") || (post.description === "")
 
+  const saveDate = () => {
+    const date = new Date()
+
+    let day = date.getDate()
+    let month = date.getMonth()
+    let year = date.getFullYear()
+    let hour = date.getHours()
+    let minutes = date.getMinutes()
+
+    let fullDate = {
+      day: day,
+      month: month + 1,
+      year: year,
+      hour: hour,
+      minutes: minutes
+    }
+
+    setPost(prev => ({...prev, date: fullDate}))
+  }
+
+  const sendPost = () => {
+    saveDate()
+    dispatch(addPost(post))
+  }
+
   return (
     <Container>
       <Photo />
@@ -45,7 +77,7 @@ const CreatePost = () => {
         </Description>
         <CreateOptions newOptions={updateOptions} />
         <FooterBtns>
-          <BtnPost disabled={checkIsValid} onClick={() => dispatch(addPost(post))} >Post</BtnPost>
+          <BtnPost disabled={checkIsValid} onClick={() => sendPost()} >Post</BtnPost>
         </FooterBtns>
       </Content>
     </Container>

@@ -11,17 +11,22 @@ const postsSlice = createSlice({
 
       if (state.length === 0) {
         return [
-          ...state,
-          {id: 1, ...action.payload}
+          {id: 1, ...action.payload},
+          ...state
         ]
       } else {
-        let lastId = state.at(-1).id
+        let lastId = state.at(0).id
         return [
-          ...state, {id: lastId + 1, ...action.payload}
+          {id: lastId + 1, ...action.payload},
+          ...state
         ]
 
       }
 
+    },
+    deletePost: (state, action) => {
+      const stateWithPostDeleted = state.filter(post => post.id !== action.payload)
+      return stateWithPostDeleted
     },
     addVotePost: (state, action) => {
       const updatedState = state.map(post => {
@@ -104,6 +109,6 @@ const postsSlice = createSlice({
 }
 )
 
-export const {addPost, addVotePost, addLike, addDislike} = postsSlice.actions
+export const {addPost, deletePost, addVotePost, addLike, addDislike} = postsSlice.actions
 
 export default postsSlice.reducer

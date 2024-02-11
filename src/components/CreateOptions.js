@@ -98,12 +98,6 @@ const PlusIcon = styled(Plus)`
 `
 
 
-const AddBtn = styled.button`
-  width: 100%;
-  border: none;
-  background-color: rgb(255,255,255);
-  font-size: 1em;
-`
 
 const DeleteOption = styled.div`
   display: flex;

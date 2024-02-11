@@ -18,9 +18,6 @@ const Profile = () => {
   const user = useSelector(state => state.users.users).find(user => user.id === currentUser)
   const posts = useSelector(state => state.posts)
 
-  const changeSection = (id) => {
-    setSectionActived(id)
-  }
 
   const postsToShow = () => {
     if (sectionActived === 1) {
@@ -52,9 +49,9 @@ const Profile = () => {
       </Header>
 
       <Sections>
-        <Section active={sectionActived === 1} onClick={() => changeSection(1)} >Posts</Section>
-        <Section active={sectionActived === 2} onClick={() => changeSection(2)} >Likes</Section>
-        <Section active={sectionActived === 3} onClick={() => changeSection(3)}>Dislikes</Section>
+        <Section active={sectionActived === 1} onClick={() => setSectionActived(1)} >Posts</Section>
+        <Section active={sectionActived === 2} onClick={() => setSectionActived(2)} >Likes</Section>
+        <Section active={sectionActived === 3} onClick={() => setSectionActived(3)}>Dislikes</Section>
       </Sections>
 
       {postsToShow().map(data => <Post key={data.id} post={data} />)}

@@ -3,9 +3,10 @@ import styled from 'styled-components'
 
 import {useSelector, useDispatch} from 'react-redux'
 
-import {addVotePost} from '../features/postsFeature.js'
+import {addVotePost, deletePost} from '../features/postsFeature.js'
 
 import {ReactComponent as Delete} from '../assets/delete.svg'
+import {ReactComponent as Voted} from '../assets/voted.svg'
 
 import ReactionButtons from './ReactionButtons.js'
 
@@ -21,7 +22,16 @@ const Post = ({post}) => {
     if (voted !== undefined) {
       return post.options.map(option => {
         const percentage = (100 * option.votes) / post.total_votes
-        return <OptionVoted key={option.id} $percentage={percentage}>{option.description}{option.id === voted.id_option ? <VotedSign>&#9745;</VotedSign> : <></>}<Percentage>{Math.round(percentage)}%</Percentage></OptionVoted>
+        return (
+          <OptionVoted
+            key={option.id}
+            $percentage={percentage}
+          >
+            {option.description}
+            {option.id === voted.id_option ? <VotedIcon /> : <></>}
+            <Percentage>{Math.round(percentage)}%</Percentage>
+          </OptionVoted>
+        )
       })
     } else {
       return post.options.map(option => <Option key={option.id} onClick={() => dispatch(addVotePost({id: post.id, newVote: {id_user: currentUser, id_option: option.id}}))}>{option.description}</Option>)
@@ -34,7 +44,7 @@ const Post = ({post}) => {
       <Profile>
         <Photo />
         <Name href="!#">{user.name}</Name>
-        {user.id === 1 && <DeleteIcon />}
+        {user.id === currentUser && <DeleteIcon onClick={() => dispatch(deletePost(post.id))} />}
       </Profile>
 
       <Description>
@@ -62,9 +72,6 @@ const Percentage = styled.span`
   margin-left: auto;
 `
 
-const VotedSign = styled.span`
-  margin-left: 10px;
-`
 
 const Container = styled.div`
   width: 40%;
@@ -145,7 +152,9 @@ const DeleteIcon = styled(Delete)`
   margin-left: auto;
 `
 
-
-
-
+const VotedIcon = styled(Voted)`
+  width: 15px;
+  height: auto;
+  margin-left: 10px;
+`
 

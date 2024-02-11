@@ -26,7 +26,7 @@ const usersSlice = createSlice({
 
             return {
               ...user,
-              likes: [...user.likes, id_post],
+              likes: [id_post, ...user.likes],
               dislikes: dislikesUpdated
             }
           }
@@ -35,7 +35,7 @@ const usersSlice = createSlice({
         }
       })
 
-      return updatedState
+      return {...state, users: updatedState}
     },
     addDislikeUser: (state, action) => {
       const updatedState = state.users.map(user => {
@@ -53,7 +53,7 @@ const usersSlice = createSlice({
 
             return {
               ...user,
-              dislikes: [...user.dislikes, id_post],
+              dislikes: [id_post, ...user.dislikes],
               likes: likesUpdated
             }
           }
@@ -62,7 +62,10 @@ const usersSlice = createSlice({
         }
       })
 
-      return updatedState
+      return {...state, users: updatedState}
+
+    },
+    deleteIdInLikesDislikes: (state, action) => {
 
     }
   }
