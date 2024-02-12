@@ -3,13 +3,12 @@ import styled from 'styled-components'
 
 import {useSelector, useDispatch} from 'react-redux'
 
-import {addVotePost, deletePost} from '../features/postsFeature.js'
-import {deleteIdInLikesDislikes} from '../features/usersFeature.js'
+import {addVotePost} from '../features/postsFeature.js'
 
-import {ReactComponent as Delete} from '../assets/delete.svg'
 import {ReactComponent as Voted} from '../assets/voted.svg'
 
 import ReactionButtons from './ReactionButtons.js'
+import OptionsPost from './OptionsPost.js'
 
 const Post = ({post}) => {
 
@@ -39,17 +38,13 @@ const Post = ({post}) => {
     }
   }
 
-  const deletePostActions = () => {
-    dispatch(deletePost(post.id))
-    dispatch(deleteIdInLikesDislikes(post.id))
-  }
 
   return (
     <Container>
       <Profile>
         <Photo />
         <Name href="!#">{user.name}</Name>
-        {user.id === currentUser && <DeleteIcon onClick={() => deletePostActions()} />}
+        {user.id === currentUser && <OptionsPost id={post.id} />}
       </Profile>
 
       <Description>
@@ -151,11 +146,6 @@ const Info = styled.div`
 `
 
 
-const DeleteIcon = styled(Delete)`
-  width: 20px;
-  height: auto;
-  margin-left: auto;
-`
 
 const VotedIcon = styled(Voted)`
   width: 15px;
