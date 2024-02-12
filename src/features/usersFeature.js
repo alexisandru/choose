@@ -67,10 +67,31 @@ const usersSlice = createSlice({
     },
     deleteIdInLikesDislikes: (state, action) => {
 
+      const updatedState = state.users.map(user => {
+        let isInLikes = user.likes.includes(action.payload)
+        let isInDislikes = user.dislikes.includes(action.payload)
+
+        if (isInLikes === true) {
+          return {
+            ...user,
+            likes: user.likes.filter(like => like !== action.payload)
+          }
+        } else if (isInDislikes === true) {
+          return {
+            ...user,
+            dislikes: user.dislikes.filter(dislike => dislike !== action.payload)
+          }
+        } else {
+          return user
+        }
+      })
+
+
+      return {...state, users: updatedState}
     }
   }
 })
 
-export const {addLikeUser, addDislikeUser} = usersSlice.actions
+export const {addLikeUser, addDislikeUser, deleteIdInLikesDislikes} = usersSlice.actions
 
 export default usersSlice.reducer
