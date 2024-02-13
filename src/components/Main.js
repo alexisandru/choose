@@ -9,7 +9,7 @@ const Main = () => {
   return (
     <Container>
       <Navbar />
-      <Profile />
+      <Feed />
     </Container>
   )
 }

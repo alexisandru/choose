@@ -39,6 +39,10 @@ const Option = styled.input`
   border: 1px solid rgba(0,0,0,0.2);
   outline: none;
   width: 100%;
+
+  &:focus {
+    border: 1px solid rgba(0,0,0,0.5);
+  }
 `
 const Container = styled.div`
   display: flex;

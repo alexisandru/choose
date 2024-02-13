@@ -98,6 +98,11 @@ const Name = styled.a`
   color: rgba(0,0,0,0.8);
   margin-left: 10px;
   font-weight: 500;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
 `
 const Description = styled.p`
   margin: 10px 0;

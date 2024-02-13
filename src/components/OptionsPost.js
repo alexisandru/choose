@@ -1,33 +1,30 @@
-import React from 'react'
+import React, {useState} from 'react'
 import styled from 'styled-components'
 
-import {useDispatch} from 'react-redux'
 
 import {ReactComponent as Delete} from '../assets/delete.svg'
 import {ReactComponent as Options} from '../assets/options.svg'
 
-import {deletePost} from '../features/postsFeature.js'
-import {deleteIdInLikesDislikes} from '../features/usersFeature.js'
+
+import Modal from './DeletePostModal.js'
 
 const OptionsPost = ({id}) => {
-  const dispatch = useDispatch()
 
-  const deletePostActions = () => {
-    dispatch(deletePost(id))
-    dispatch(deleteIdInLikesDislikes(id))
-  }
+  const [modal, setModal] = useState(false)
 
   return (
     <Container>
       <OptionsIcon />
-      <Dropdown>
-        <DropdownItem onClick={() => deletePostActions()}>
-          <DeleteIcon />
-          Delete post
+      {modal
+        ? <Modal id={id} open={modal} close={() => setModal(false)} />
+        : <Dropdown>
+          <DropdownItem onClick={() => setModal(true)}>
+            <DeleteIcon />
+            Delete post
+          </DropdownItem>
+        </Dropdown>
+      }
 
-        </DropdownItem>
-
-      </Dropdown>
     </Container>
   )
 }
