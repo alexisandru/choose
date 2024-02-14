@@ -19,7 +19,10 @@ const Profile = () => {
   const user = useSelector(state => state.users.users).find(user => user.id === currentUser)
   const posts = useSelector(state => state.posts)
 
-  const followed = user.followers.includes(currentUser)
+  const followButtons = user.followers.includes(currentUser)
+    ? <FollowBtn onClick={() => followActions()}>Follow <OkIcon /></FollowBtn>
+    : <UnfollowBtn onClick={() => unfollowActions()}>Unfollow <CloseIcon /></UnfollowBtn>
+
 
   const postsToShow = () => {
     if (sectionActived === 1) {
@@ -51,10 +54,7 @@ const Profile = () => {
           <FollowingCount>Following: {user.following.length}</FollowingCount>
         </InfoUser>
 
-        {!followed
-          ? <FollowBtn onClick={() => followActions()}>Follow <OkIcon /></FollowBtn>
-          : <UnfollowBtn onClick={() => unfollowActions()}>Unfollow <CloseIcon /></UnfollowBtn>
-        }
+        {followButtons && (user.id !== currentUser)}
 
       </Header>
 

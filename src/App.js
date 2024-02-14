@@ -1,11 +1,12 @@
 import React from 'react'
 
-import Main from './components/Main.js'
+//import Main from './components/Main.js'
+import Login from './components/Login.js'
 
 function App() {
   return (
     <div>
-      <Main />
+      <Login />
     </div>
   );
 }
