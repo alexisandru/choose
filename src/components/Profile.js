@@ -3,33 +3,42 @@ import styled from 'styled-components'
 
 import Post from './Post.js'
 
-import {useSelector} from 'react-redux'
+import {useSelector, useDispatch} from 'react-redux'
 
 import {ReactComponent as Ok} from '../assets/ok.svg'
 import {ReactComponent as Close} from '../assets/close.svg'
 
+import {addFollower, addFollowing, deleteFollower, deleteFollowing} from '../features/usersFeature.js'
 
 const Profile = () => {
+  const dispatch = useDispatch()
 
-  //const [followed, setFollowed] = useState(true)
   const [sectionActived, setSectionActived] = useState(1)
 
   const currentUser = useSelector(state => state.users.actual_user)
   const user = useSelector(state => state.users.users).find(user => user.id === currentUser)
   const posts = useSelector(state => state.posts)
 
-  const followed = () => user.followers.includes(currentUser)
+  const followed = user.followers.includes(currentUser)
 
   const postsToShow = () => {
     if (sectionActived === 1) {
       return posts.filter(post => post.user_id === user.id)
     } else if (sectionActived === 2) {
-      const likesPosts = user.likes.map(like => posts.find(post => post.id === like))
-      return likesPosts
+      return user.likes.map(like => posts.find(post => post.id === like))
     } else if (sectionActived === 3) {
-      const dislikesPosts = user.dislikes.map(dislike => posts.find(post => post.id === dislike))
-      return dislikesPosts
+      return user.dislikes.map(dislike => posts.find(post => post.id === dislike))
     }
+  }
+
+  const followActions = () => {
+    dispatch(addFollower(user.id))
+    dispatch(addFollowing(user.id))
+  }
+
+  const unfollowActions = () => {
+    dispatch(deleteFollower(user.id))
+    dispatch(deleteFollowing(user.id))
   }
 
   return (
@@ -42,9 +51,9 @@ const Profile = () => {
           <FollowingCount>Following: {user.following.length}</FollowingCount>
         </InfoUser>
 
-        {followed
-          ? <FollowBtn>Follow <OkIcon /></FollowBtn>
-          : <UnfollowBtn>Unfollow <CloseIcon /></UnfollowBtn>
+        {!followed
+          ? <FollowBtn onClick={() => followActions()}>Follow <OkIcon /></FollowBtn>
+          : <UnfollowBtn onClick={() => unfollowActions()}>Unfollow <CloseIcon /></UnfollowBtn>
         }
 
       </Header>

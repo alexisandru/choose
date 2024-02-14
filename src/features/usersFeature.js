@@ -88,10 +88,54 @@ const usersSlice = createSlice({
 
 
       return {...state, users: updatedState}
+    },
+    addFollower: (state, action) => {
+      const updatedState = state.users.map(user => {
+        if (user.id === action.payload) {
+          return {...user, followers: [state.actual_user, ...user.followers]}
+        } else {
+          return user
+        }
+      })
+
+      return {...state, users: updatedState}
+    },
+    addFollowing: (state, action) => {
+      const updatedState = state.users.map(user => {
+        if (user.id === state.actual_user) {
+          return {...user, following: [action.payload, ...user.following]}
+        } else {
+          return user
+        }
+      })
+
+      return {...state, users: updatedState}
+    },
+    deleteFollower: (state, action) => {
+      const updatedState = state.users.map(user => {
+        if (user.id === action.payload) {
+          return {...user, followers: user.followers.filter(follower => follower !== state.actual_user)}
+        } else {
+          return user
+        }
+      })
+
+      return {...state, users: updatedState}
+    },
+    deleteFollowing: (state, action) => {
+      const updatedState = state.users.map(user => {
+        if (user.id === state.actual_user) {
+          return {...user, following: user.following.filter(following => following !== action.payload)}
+        } else {
+          return user
+        }
+      })
+
+      return {...state, users: updatedState}
     }
   }
 })
 
-export const {addLikeUser, addDislikeUser, deleteIdInLikesDislikes} = usersSlice.actions
+export const {addLikeUser, addDislikeUser, deleteIdInLikesDislikes, addFollower, addFollowing, deleteFollower, deleteFollowing} = usersSlice.actions
 
 export default usersSlice.reducer
