@@ -1,28 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
-import ErrorPage from './components/ErrorPage.js'
 
 import {configureStore} from '@reduxjs/toolkit'
 import allReducers from './features'
 import {Provider} from 'react-redux'
 
-import {createBrowserRouter, RouterProvider} from 'react-router-dom'
 
 const store = configureStore({reducer: allReducers})
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <App />,
-    errorElement: <ErrorPage />
-  }
-])
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>
-    <RouterProvider router={router} />
+    <App />
   </Provider>
 );
 

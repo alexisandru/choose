@@ -9,10 +9,11 @@ const Main = () => {
   return (
     <Container>
       <Navbar />
-      <Feed />
+      <Profile />
     </Container>
   )
 }
+
 
 export default Main
 

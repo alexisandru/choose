@@ -37,7 +37,9 @@
         2,
         6,
         8
-      ]
+      ],
+      "followers": [],
+      "following": []
     },
     {
       "id": 3,
@@ -51,7 +53,9 @@
         4,
         5,
         6
-      ]
+      ],
+      "followers": [],
+      "following": []
     },
     {
       "id": 4,
@@ -60,7 +64,9 @@
         1,
         7
       ],
-      "dislikes": []
+      "dislikes": [],
+      "followers": [],
+      "following": []
     },
     {
       "id": 5,
@@ -71,7 +77,9 @@
       ],
       "dislikes": [
         1
-      ]
+      ],
+      "followers": [],
+      "following": []
     },
     {
       "id": 6,
@@ -81,7 +89,9 @@
       ],
       "dislikes": [
         7
-      ]
+      ],
+      "followers": [],
+      "following": []
     },
     {
       "id": 7,
@@ -94,7 +104,9 @@
         8,
         9,
         10
-      ]
+      ],
+      "followers": [],
+      "following": []
     },
     {
       "id": 8,
@@ -104,7 +116,9 @@
         4,
         7,
         10
-      ]
+      ],
+      "followers": [],
+      "following": []
     },
     {
       "id": 9,
@@ -114,7 +128,9 @@
       ],
       "dislikes": [
         10
-      ]
+      ],
+      "followers": [],
+      "following": []
     },
     {
       "id": 10,
@@ -125,7 +141,9 @@
         6,
         8
       ],
-      "dislikes": []
+      "dislikes": [],
+      "followers": [],
+      "following": []
     }
   ]
 }

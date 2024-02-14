@@ -11,13 +11,14 @@ import {ReactComponent as Close} from '../assets/close.svg'
 
 const Profile = () => {
 
-  const [followed, setFollowed] = useState(true)
+  //const [followed, setFollowed] = useState(true)
   const [sectionActived, setSectionActived] = useState(1)
 
   const currentUser = useSelector(state => state.users.actual_user)
   const user = useSelector(state => state.users.users).find(user => user.id === currentUser)
   const posts = useSelector(state => state.posts)
 
+  const followed = () => user.followers.includes(currentUser)
 
   const postsToShow = () => {
     if (sectionActived === 1) {
