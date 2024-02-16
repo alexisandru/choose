@@ -38,8 +38,12 @@
         6,
         8
       ],
-      "followers": [],
-      "following": []
+      "followers": [
+        1
+      ],
+      "following": [
+        1
+      ]
     },
     {
       "id": 3,

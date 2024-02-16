@@ -6,21 +6,26 @@ import {ReactComponent as User} from '../assets/profile.svg'
 import {ReactComponent as Profile} from '../assets/profile_circle.svg'
 import {ReactComponent as Logout} from '../assets/logout.svg'
 
+import {Link} from 'react-router-dom'
+import {useSelector} from 'react-redux'
+
 const Navbar = () => {
+  const currentUser = useSelector(state => state.users.actual_user)
+
   return (
     <Container>
-      <Title href="#!">Choose</Title>
+      <Title to="/">Choose</Title>
       <Dropdown>
         <DropdownBtn>
           <UserIcon />
           Alexis
         </DropdownBtn>
         <DropdownMenu>
-          <DropdownItem><ProfileIcon />Profile</DropdownItem>
+          <DropdownItem to={`/user/${currentUser}`}><ProfileIcon />Profile</DropdownItem>
           <DropdownItem><LogoutIcon />Logout</DropdownItem>
         </DropdownMenu>
       </Dropdown>
-    </Container>
+    </Container >
   )
 }
 
@@ -32,7 +37,7 @@ const Container = styled.div`
   padding: 10px 30px;
 `
 
-const Title = styled.a`
+const Title = styled(Link)`
   font-family: 'Dancing Script', cursive;
   font-weight: bold;
   text-decoration: none;
@@ -65,10 +70,11 @@ const DropdownMenu = styled.div`
 
 const DropdownBtn = styled.div`
   cursor: pointer;
-  padding: 10px 20px;
+  padding: 14px 20px;
   border-radius: 5px;
   display: flex;
-  align-items: center;
+  align-self: center;
+  justify-content: center;
 
   ${Dropdown}:hover & {
     background-color: rgba(0, 0, 0, 0.07);  
@@ -78,10 +84,12 @@ const DropdownBtn = styled.div`
 `
 
 
-const DropdownItem = styled.div`
+const DropdownItem = styled(Link)`
   display: flex;
   align-items: center;
   padding: 10px 40px 10px 20px;
+  text-decoration: none;
+  color: rgb(0,0,0);
 
   &:hover {
     cursor: pointer;

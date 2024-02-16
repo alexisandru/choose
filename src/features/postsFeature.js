@@ -8,16 +8,25 @@ const postsSlice = createSlice({
   initialState,
   reducers: {
     addPost: (state, action) => {
+      let newPost = action.payload
+      newPost = {
+        ...newPost,
+        likes: [],
+        dislikes: [],
+        voters: [],
+        total_votes: 0,
+        date: Date.now()
+      }
 
       if (state.length === 0) {
         return [
-          {id: 1, ...action.payload},
+          {id: 1, ...newPost},
           ...state
         ]
       } else {
         let lastId = state.at(0).id
         return [
-          {id: lastId + 1, ...action.payload},
+          {id: lastId + 1, ...newPost},
           ...state
         ]
 

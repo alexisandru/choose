@@ -10,6 +10,8 @@ import {ReactComponent as Voted} from '../assets/voted.svg'
 import ReactionButtons from './ReactionButtons.js'
 import OptionsPost from './OptionsPost.js'
 
+import {Link} from 'react-router-dom'
+
 const Post = ({post}) => {
 
   const dispatch = useDispatch()
@@ -38,14 +40,28 @@ const Post = ({post}) => {
     }
   }
 
+  const formatDate = () => {
+    const date = new Date(post.date)
+
+    let day = date.getDate()
+    let month = date.getMonth()
+    let year = date.getFullYear()
+    let hour = date.getHours()
+    let minutes = date.getMinutes()
+
+    hour = hour < 10 ? '0' + hour : hour
+    minutes = minutes < 10 ? '0' + minutes : minutes
+
+    return <p>{day}/{month + 1}/{year} {hour}:{minutes}</p>
+  }
 
   return (
     <Container>
-      <Profile>
+      <ProfileData>
         <Photo />
-        <Name href="!#">{user.name}</Name>
+        <Name to={`/user/${user.id}`}>{user.name}</Name>
         {user.id === currentUser && <OptionsPost id={post.id} />}
-      </Profile>
+      </ProfileData>
 
       <Description>
         {post.description}
@@ -57,10 +73,11 @@ const Post = ({post}) => {
 
       <Info>
         <p>{post.total_votes}</p>
-        <p>{post.date.day}/{post.date.month}/{post.date.year} {post.date.hour}:{post.date.minutes}</p>
+        {formatDate()}
       </Info>
 
       <ReactionButtons id_user={currentUser} id_post={post.id} />
+
 
     </Container>
   )
@@ -80,9 +97,13 @@ const Container = styled.div`
   padding: 15px 20px;
   margin-top: 10px;
   box-shadow: rgba(0,0,0,0.24) 0px 3px 8px;
+
+  @media screen and (max-width: 400px) {
+    width: 95%;
+  }
 `
 
-const Profile = styled.div`
+const ProfileData = styled.div`
   display: flex;
   align-items: center;
 `
@@ -94,7 +115,7 @@ const Photo = styled.div`
   background-color: rgba(0,0,0,0.4);
 `
 
-const Name = styled.a`
+const Name = styled(Link)`
   color: rgba(0,0,0,0.8);
   margin-left: 10px;
   font-weight: 500;

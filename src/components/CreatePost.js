@@ -15,12 +15,7 @@ const CreatePost = () => {
   const [post, setPost] = useState({
     user_id: currentUser,
     description: "",
-    options: [],
-    likes: [],
-    date: {},
-    dislikes: [],
-    voters: [],
-    total_votes: 0
+    options: []
   })
 
   const changeHeight = () => {
@@ -40,28 +35,8 @@ const CreatePost = () => {
 
   const checkIsValid = post.options.some(element => element.description === "") || (post.description === "")
 
-  const saveDate = () => {
-    const date = new Date()
-
-    let day = date.getDate()
-    let month = date.getMonth()
-    let year = date.getFullYear()
-    let hour = date.getHours()
-    let minutes = date.getMinutes()
-
-    let fullDate = {
-      day: day,
-      month: month + 1,
-      year: year,
-      hour: hour,
-      minutes: minutes
-    }
-
-    setPost(prev => ({...prev, date: fullDate}))
-  }
 
   const sendPost = () => {
-    saveDate()
     dispatch(addPost(post))
   }
 
@@ -101,6 +76,11 @@ const Container = styled.div`
   box-shadow: rgba(0,0,0,0.24) 0px 3px 8px;
 
   display: flex;
+  
+  @media screen and (max-width: 400px) {
+    width: 95%;
+  }
+
 `
 
 const Content = styled.div`
