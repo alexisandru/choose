@@ -1,13 +1,13 @@
-import React, {useState, useCallback, useEffect} from 'react'
+import React, {useState, useMemo, useCallback, useEffect} from 'react'
 import OptionInput from './OptionInput.js'
 
 import styled from 'styled-components'
 
 import {ReactComponent as Plus} from '../assets/plus.svg'
 
-const CreateOptions = ({newOptions}) => {
+const CreateOptions = ({newOptions, reset}) => {
 
-  const [options, setOptions] = useState([
+  const initialState = useMemo(() => [
     {
       id: 1,
       description: "",
@@ -17,7 +17,13 @@ const CreateOptions = ({newOptions}) => {
       description: "",
       votes: 0
     }
-  ])
+  ], [])
+
+  const [options, setOptions] = useState(initialState)
+
+  useEffect(() => {
+    setOptions(initialState)
+  }, [reset, initialState])
 
   useEffect(() => {
     newOptions(options)
@@ -56,11 +62,11 @@ const CreateOptions = ({newOptions}) => {
 
   const formattedOptions = options.map((option) => {
     if (option.id < 3) {
-      return <OptionInput key={option.id} data={option} updateOption={updateOption} />
+      return <OptionInput key={option.id} data={option} updateOption={updateOption} reset={reset} />
     } else {
       return (
         <DeleteOption key={option.id}>
-          <OptionInput data={option} updateOption={updateOption} />
+          <OptionInput data={option} updateOption={updateOption} reset={reset} />
           <BtnDelete onClick={() => deleteOption(option.id)}>X</BtnDelete>
         </DeleteOption>
       )

@@ -12,6 +12,7 @@ const CreatePost = () => {
 
   const currentUser = useSelector(state => state.users.actual_user)
 
+  const [clearOptionsInputs, setClearOptionsInputs] = useState(false)
   const [post, setPost] = useState({
     user_id: currentUser,
     description: "",
@@ -38,6 +39,7 @@ const CreatePost = () => {
 
   const sendPost = () => {
     dispatch(addPost(post))
+    setClearOptionsInputs(prev => !prev)
     setPost({
       ...post,
       description: "",
@@ -55,7 +57,7 @@ const CreatePost = () => {
           value={post.description}
           placeholder="Add a description about...">
         </Description>
-        <CreateOptions newOptions={updateOptions} />
+        <CreateOptions newOptions={updateOptions} reset={clearOptionsInputs} />
         <FooterBtns>
           <BtnPost disabled={checkIsValid} onClick={() => sendPost()} >Post</BtnPost>
         </FooterBtns>

@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import styled from 'styled-components'
 
-const OptionInput = ({data, updateOption}) => {
+const OptionInput = ({data, updateOption, reset}) => {
 
   const [option, setOption] = useState(data)
 
@@ -12,6 +12,10 @@ const OptionInput = ({data, updateOption}) => {
   useEffect(() => {
     updateOption(option, option.id)
   }, [option, updateOption])
+
+  useEffect(() => {
+    setOption(prev => {return {...prev, description: ""}})
+  }, [reset])
 
   return (
 
