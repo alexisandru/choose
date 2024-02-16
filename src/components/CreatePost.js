@@ -38,6 +38,11 @@ const CreatePost = () => {
 
   const sendPost = () => {
     dispatch(addPost(post))
+    setPost({
+      ...post,
+      description: "",
+      options: []
+    })
   }
 
   return (
@@ -79,6 +84,7 @@ const Container = styled.div`
   
   @media screen and (max-width: 400px) {
     width: 95%;
+    margin-top: 0;
   }
 
 `
@@ -114,6 +120,10 @@ const BtnPost = styled.button`
   &:disabled {
     cursor: auto;
     background-color: rgba(56, 23, 122, 0.2);
+  }
+  
+  @media screen and (max-width: 400px) {
+    padding: 10px 20px;
   }
 
 `

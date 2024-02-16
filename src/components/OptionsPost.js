@@ -32,7 +32,6 @@ const OptionsPost = ({id}) => {
 export default OptionsPost
 
 const Container = styled.div`
-  margin-left: auto;
   position: relative;
   display: inline-block;
 `
@@ -45,15 +44,15 @@ const OptionsIcon = styled(Options)`
 const Dropdown = styled.div`
   display: none;
   position: absolute;
-  z-index: 1;
+  z-index: 2;
+  right: 0;
   width: max-content;
   background-color: rgb(255, 255, 255);
   border-radius: 5px; 
-  
 
   ${Container}:hover & {
     display: block;
-    box-shadow: 1px 1px 10px 1px rgba(0,0,0,0.3);
+    box-shadow: 1px 1px 10px 1px rgba(0,0,0,0.5);
   }
 `
 

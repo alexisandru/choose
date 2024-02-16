@@ -81,6 +81,10 @@ const Sections = styled.div`
   display: flex;
   justify-content: space-around;
   border-bottom: 1px solid rgba(0,0,0,0.2);
+  
+  @media screen and (max-width: 400px) {
+    width: 95%;
+  }
 `
 
 const Section = styled.div`
@@ -118,6 +122,12 @@ const Username = styled.h1`
   margin-bottom: 20px;
   font-size: 3em;
   color: rgba(0,0,0,0.9);
+
+  @media screen and (max-width: 400px) {
+    text-align: center;
+    font-size: 2em;
+  }
+
 `
 
 const InfoUser = styled.div`

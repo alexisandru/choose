@@ -34,7 +34,7 @@ export default OptionInput
 const Option = styled.input`
   font-size: 0.9em;
   padding: 5px;
-  border-radius: 5px;
+  border-radius: 3px;
   margin-bottom: 5px;
   border: 1px solid rgba(0,0,0,0.2);
   outline: none;
@@ -42,6 +42,10 @@ const Option = styled.input`
 
   &:focus {
     border: 1px solid rgba(0,0,0,0.5);
+  }
+  
+  @media screen and (max-width: 400px) {
+    padding: 10px 5px;
   }
 `
 const Container = styled.div`
@@ -54,4 +58,7 @@ const Counter = styled.span`
   align-self: flex-end;
   color: rgba(0, 0, 0, 0.6);
   font-size: 0.75em;
+  @media screen and (max-width: 400px) {
+    font-size: 0.7em;
+  }
 `

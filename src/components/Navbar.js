@@ -35,6 +35,10 @@ const Container = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 10px 30px;
+
+  @media screen and (max-width: 400px) {
+    padding: 10px 15px;
+  }
 `
 
 const Title = styled(Link)`
@@ -65,6 +69,11 @@ const DropdownMenu = styled.div`
   ${Dropdown}:hover & {
     display: block;
     box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.3);
+  }
+
+
+  @media screen and (max-width: 400px) {
+    right: 0;
   }
 `
 

@@ -58,8 +58,10 @@ const Post = ({post}) => {
   return (
     <Container>
       <ProfileData>
-        <Photo />
-        <Name to={`/user/${user.id}`}>{user.name}</Name>
+        <ProfileName>
+          <Photo />
+          <Name to={`/user/${user.id}`}>{user.name}</Name>
+        </ProfileName>
         {user.id === currentUser && <OptionsPost id={post.id} />}
       </ProfileData>
 
@@ -95,7 +97,7 @@ const Container = styled.div`
   border: 1px solid rgba(0,0,0,0.1);
   border-radius: 10px;
   padding: 15px 20px;
-  margin-top: 10px;
+  margin-top: 15px;
   box-shadow: rgba(0,0,0,0.24) 0px 3px 8px;
 
   @media screen and (max-width: 400px) {
@@ -104,6 +106,12 @@ const Container = styled.div`
 `
 
 const ProfileData = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`
+
+const ProfileName = styled.div`
   display: flex;
   align-items: center;
 `
