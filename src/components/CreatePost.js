@@ -13,6 +13,7 @@ const CreatePost = () => {
   const currentUser = useSelector(state => state.users.actual_user)
 
   const [clearOptionsInputs, setClearOptionsInputs] = useState(false)
+  const [showOptions, setShowOptions] = useState(false)
   const [post, setPost] = useState({
     user_id: currentUser,
     description: "",
@@ -40,6 +41,7 @@ const CreatePost = () => {
   const sendPost = () => {
     dispatch(addPost(post))
     setClearOptionsInputs(prev => !prev)
+    setShowOptions(false)
     setPost({
       ...post,
       description: "",
@@ -53,11 +55,14 @@ const CreatePost = () => {
       <Content>
         <Description
           ref={textareaRef}
+          onClick={() => setShowOptions(true)}
           onChange={e => handleChangeText(e)}
           value={post.description}
           placeholder="Add a description about...">
         </Description>
-        <CreateOptions newOptions={updateOptions} reset={clearOptionsInputs} />
+        {
+          showOptions && <CreateOptions newOptions={updateOptions} reset={clearOptionsInputs} />
+        }
         <FooterBtns>
           <BtnPost disabled={checkIsValid} onClick={() => sendPost()} >Post</BtnPost>
         </FooterBtns>

@@ -50,6 +50,7 @@ const Container = styled.div`
 
 const Sections = styled.div`
   width: 40%;
+  margin-top: 10px;
   display: flex;
   justify-content: space-around;
   border-bottom: 1px solid rgba(0,0,0,0.2);
