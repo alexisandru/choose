@@ -28,7 +28,7 @@ const Navbar = () => {
       <Dropdown>
         <DropdownBtn>
           <UserIcon />
-          alexis
+    {user && user.name.split(" ")[0]}
         </DropdownBtn>
         <DropdownMenu>
           <DropdownItem to={`/user/${currentUser}`}><ProfileIcon />Profile</DropdownItem>
