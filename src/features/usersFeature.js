@@ -1,29 +1,57 @@
 import {createSlice} from '@reduxjs/toolkit'
-import data from '../assets/users.json'
+
 
 const initialState = {
-  actual_user: 1,
-  users: data.users
+  actual_user: null,
+  users: []
 }
+
+
 
 const usersSlice = createSlice({
   name: "users",
   initialState,
   reducers: {
+    addIdCurrentUser: (state, action) => {
+      console.log("se adjunto id del usuario current")
+      return {...state, actual_user: action.payload}
+    },
+    addUser: (state, action) => {
+      const aux = action.payload
+      const checkUser = state.users.find(user => user.id === action.payload.id)
+
+      if (checkUser === undefined) {
+        const newUser = {
+          id: aux.id,
+          name: aux.name,
+          likes: [],
+          dislikes: [],
+          followers: [],
+          following: []
+        }
+        return {...state, users: [newUser, ...state.users], actual_user: aux.id}
+      } else {
+        return {...state, actual_user: aux.id}
+      }
+    },
+    addOneUser: (state, action) => {
+      return {...state, users: [action.payload, ...state.users]}
+    },
     addLikeUser: (state, action) => {
       const updatedState = state.users.map(user => {
         const {id_post, id_user} = action.payload
         if (user.id === id_user) {
-          if (user.likes.includes(id_post)) {
-            const likesUpdated = user.likes.filter(like => like !== id_post)
 
+          if (user.likes.includes(id_post)) {
+            // si ya incluye el like, lo saca del post
+            const likesUpdated = user.likes.filter(like => like !== id_post)
             return {
               ...user,
               likes: likesUpdated
             }
           } else {
+            // sino agrega el like y elimina el dislike
             const dislikesUpdated = user.dislikes.filter(dislike => dislike !== id_post)
-
             return {
               ...user,
               likes: [id_post, ...user.likes],
@@ -133,9 +161,9 @@ const usersSlice = createSlice({
 
       return {...state, users: updatedState}
     }
-  }
+  },
 })
 
-export const {addLikeUser, addDislikeUser, deleteIdInLikesDislikes, addFollower, addFollowing, deleteFollower, deleteFollowing} = usersSlice.actions
+export const {addIdCurrentUser, addUser, addOneUser, addLikeUser, addDislikeUser, deleteIdInLikesDislikes, addFollower, addFollowing, deleteFollower, deleteFollowing} = usersSlice.actions
 
 export default usersSlice.reducer

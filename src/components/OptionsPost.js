@@ -6,7 +6,7 @@ import {ReactComponent as Delete} from '../assets/delete.svg'
 import {ReactComponent as Options} from '../assets/options.svg'
 
 
-import Modal from './DeletePostModal.js'
+import DeletePostModal from './DeletePostModal.js'
 
 const OptionsPost = ({id}) => {
 
@@ -16,7 +16,7 @@ const OptionsPost = ({id}) => {
     <Container>
       <OptionsIcon />
       {modal
-        ? <Modal id={id} open={modal} close={() => setModal(false)} />
+        ? <DeletePostModal id={id} open={modal} close={() => setModal(false)} />
         : <Dropdown>
           <DropdownItem onClick={() => setModal(true)}>
             <DeleteIcon />

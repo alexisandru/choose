@@ -5,6 +5,7 @@ import {useDispatch} from 'react-redux'
 
 import {deletePost} from '../features/postsFeature.js'
 import {deleteIdInLikesDislikes} from '../features/usersFeature.js'
+import {updateLikesDislikesUsers, deletePostFirestore} from '../features/thunks.js'
 
 const DeletePostModal = ({id, open, close}) => {
 
@@ -14,6 +15,8 @@ const DeletePostModal = ({id, open, close}) => {
     close()
     dispatch(deletePost(id))
     dispatch(deleteIdInLikesDislikes(id))
+    dispatch(deletePostFirestore({id: id}))
+    dispatch(updateLikesDislikesUsers({id: id}))
   }
 
   return (

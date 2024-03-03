@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 import {useSelector, useDispatch} from 'react-redux'
+import {addUserActionsToPostFirestore, addReactionUserToFirestore} from '../features/thunks'
 
 import {ReactComponent as Dislike} from '../assets/dislike.svg'
 import {ReactComponent as Like} from '../assets/like.svg'
@@ -11,28 +12,30 @@ import {addLikeUser, addDislikeUser} from '../features/usersFeature.js'
 
 const ReactionButtons = ({id_user, id_post}) => {
   const dispatch = useDispatch()
-
   const post = useSelector(state => state.posts).find(post => post.id === id_post)
 
   const likeBehavior = () => {
     dispatch(addLike({id_post, id_user}))
     dispatch(addLikeUser({id_post, id_user}))
+    dispatch(addUserActionsToPostFirestore({id: id_post}))
+    dispatch(addReactionUserToFirestore({id: id_user}))
   }
 
   const dislikeBehavior = () => {
     dispatch(addDislike({id_post, id_user}))
     dispatch(addDislikeUser({id_post, id_user}))
+    dispatch(addUserActionsToPostFirestore({id: id_post}))
+    dispatch(addReactionUserToFirestore({id: id_user}))
   }
-
 
   return (
     <Container>
       <Button onClick={() => likeBehavior()}>
-        <LikeIcon active={post.likes.includes(id_user)} />
+        <LikeIcon $active={post.likes.includes(id_user)} />
         {post.likes.length}
       </Button>
       <Button onClick={() => dislikeBehavior()}>
-        <DislikeIcon active={post.dislikes.includes(id_user)} />
+        <DislikeIcon $active={post.dislikes.includes(id_user)} />
         {post.dislikes.length}
       </Button>
     </Container>
@@ -59,17 +62,17 @@ const Button = styled.div`
 const LikeIcon = styled(Like)`
   width: 23px;
   height: auto;
-  fill: ${props => props.active ? 'rgba(56, 23, 122, 0.5)' : ''};
+  fill: ${props => props.$active ? 'rgba(56, 23, 122, 0.5)' : ''};
     &> path {
-    stroke: ${props => props.active ? 'rgba(56, 23, 122, 0.6)' : ''};
+    stroke: ${props => props.$active ? 'rgba(56, 23, 122, 0.6)' : ''};
   }
 `
 
 const DislikeIcon = styled(Dislike)`
   width: 23px;
   height: auto;
-  fill: ${props => props.active ? 'rgba(168, 50, 50, 0.6)' : ''};
+  fill: ${props => props.$active ? 'rgba(168, 50, 50, 0.6)' : ''};
   &>  path {
-    stroke: ${props => props.active ? 'rgba(168, 50, 50, 1)' : ''};
+    stroke: ${props => props.$active ? 'rgba(168, 50, 50, 1)' : ''};
   }
 ` 

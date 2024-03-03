@@ -11,15 +11,13 @@ const Feed = () => {
 
   const posts = useSelector(state => state.posts)
   const currentUser = useSelector(state => state.users.actual_user)
-  const following = useSelector(state => state.users.users).find(user => user.id === currentUser).following
-
-
+  const following = useSelector(state => state.users.users).find(user => user.id === currentUser)
 
   const postsToShow = () => {
     if (sectionActived === 1) {
       return posts
     } else if (sectionActived === 2) {
-      return posts.filter(post => following.includes(post.user_id))
+      return posts.filter(post => following.following.includes(post.user_id))
     }
   }
 
@@ -29,8 +27,8 @@ const Feed = () => {
       <CreatePost />
 
       <Sections>
-        <Section active={sectionActived === 1} onClick={() => setSectionActived(1)} >Posts</Section>
-        <Section active={sectionActived === 2} onClick={() => setSectionActived(2)} >Following</Section>
+        <Section $active={sectionActived === 1 ? +true : undefined} onClick={() => setSectionActived(1)} >Posts</Section>
+        <Section $active={sectionActived === 2 ? +true : undefined} onClick={() => setSectionActived(2)} >Following</Section>
       </Sections>
 
       {postsToShow().map(data => <Post key={data.id} post={data} />)}
@@ -69,9 +67,9 @@ const Section = styled.div`
   padding: 15px 0;
   cursor: pointer;
 
-  border-bottom: ${props => props.active ? '2px solid rgba(56, 23, 122, 0.8)' : '2px solid rgb(255, 255, 255)'};
+  border-bottom: ${props => props.$active === 1 ? '2px solid rgba(56, 23, 122, 0.8)' : '2px solid rgb(255, 255, 255)'};
 
   &:hover{
-    border-bottom: ${props => props.active ? '2px solid rgba(56, 23, 122, 0.8)' : '2px solid rgba(56, 23, 122, 0.3)'};
+    border-bottom: ${props => props.$active === 1 ? '2px solid rgba(56, 23, 122, 0.8)' : '2px solid rgba(56, 23, 122, 0.3)'};
   }
 `

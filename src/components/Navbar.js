@@ -9,8 +9,16 @@ import {ReactComponent as Logout} from '../assets/logout.svg'
 import {Link} from 'react-router-dom'
 import {useSelector} from 'react-redux'
 
+//firebase
+import {auth} from '../firebase.js'
+import {signOut} from 'firebase/auth'
+
 const Navbar = () => {
   const currentUser = useSelector(state => state.users.actual_user)
+
+  const logout = async () => {
+    await signOut(auth)
+  }
 
   return (
     <Container>
@@ -22,7 +30,7 @@ const Navbar = () => {
         </DropdownBtn>
         <DropdownMenu>
           <DropdownItem to={`/user/${currentUser}`}><ProfileIcon />Profile</DropdownItem>
-          <DropdownItem><LogoutIcon />Logout</DropdownItem>
+          <DropdownItem onClick={() => logout()}><LogoutIcon />Logout</DropdownItem>
         </DropdownMenu>
       </Dropdown>
     </Container >

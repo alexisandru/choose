@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import styled from 'styled-components'
 
 import Post from './Post.js'
+import ModalFollowers from './ModalFollowers.js'
 
 import {useSelector, useDispatch} from 'react-redux'
 
@@ -9,6 +10,7 @@ import {ReactComponent as Ok} from '../assets/ok.svg'
 import {ReactComponent as Close} from '../assets/close.svg'
 
 import {addFollower, addFollowing, deleteFollower, deleteFollowing} from '../features/usersFeature.js'
+import {addFollowerFirestore, addFollowingFirestore, deleteFollowerFirestore, deleteFollowingFirestore} from '../features/thunks.js'
 
 import {useParams} from 'react-router-dom'
 
@@ -17,16 +19,18 @@ const Profile = () => {
   const {id} = useParams()
 
   const [sectionActived, setSectionActived] = useState(1)
+  const [sectionModal, setSectionModal] = useState(1)
+  const [openModal, setOpenModal] = useState(false)
 
-  const user = useSelector(state => state.users.users).find(user => user.id === Number(id))
+  const user = useSelector(state => state.users.users).find(user => `${user.id}` === id)
   const currentUser = useSelector(state => state.users.actual_user)
   const posts = useSelector(state => state.posts)
 
-
   const followButtons = user.followers.includes(currentUser)
-    ? <FollowBtn onClick={() => followActions()}>Follow <OkIcon /></FollowBtn>
-    : <UnfollowBtn onClick={() => unfollowActions()}>Unfollow <CloseIcon /></UnfollowBtn>
+    ? <UnfollowBtn onClick={() => unfollowActions()}>Unfollow <CloseIcon /></UnfollowBtn>
+    : <FollowBtn onClick={() => followActions()}>Follow <OkIcon /></FollowBtn>
 
+  const isTheSame = user.id !== currentUser
 
   const postsToShow = () => {
     if (sectionActived === 1) {
@@ -41,11 +45,20 @@ const Profile = () => {
   const followActions = () => {
     dispatch(addFollower(user.id))
     dispatch(addFollowing(user.id))
+    dispatch(addFollowerFirestore(user.id))
+    dispatch(addFollowingFirestore(user.id))
   }
 
   const unfollowActions = () => {
     dispatch(deleteFollower(user.id))
     dispatch(deleteFollowing(user.id))
+    dispatch(deleteFollowerFirestore(user.id))
+    dispatch(deleteFollowingFirestore(user.id))
+  }
+
+  const handleModal = (section) => {
+    setSectionModal(section)
+    setOpenModal(prev => !prev)
   }
 
   return (
@@ -53,19 +66,21 @@ const Profile = () => {
       <Header>
         <Username>{user.name}</Username>
 
+        {openModal && <ModalFollowers user={user} section={sectionModal} open={openModal} close={() => setOpenModal(false)} />}
+
         <InfoUser>
-          <FollowersCount>Followers: {user.followers.length}</FollowersCount>
-          <FollowingCount>Following: {user.following.length}</FollowingCount>
+          <FollowersCount onClick={() => handleModal(1)}>Followers: {user.followers.length}</FollowersCount>
+          <FollowingCount onClick={() => handleModal(2)}>Following: {user.following.length}</FollowingCount>
         </InfoUser>
 
-        {followButtons && (user.id !== currentUser)}
+        {isTheSame && followButtons}
 
       </Header>
 
       <Sections>
-        <Section active={sectionActived === 1} onClick={() => setSectionActived(1)} >Posts</Section>
-        <Section active={sectionActived === 2} onClick={() => setSectionActived(2)} >Likes</Section>
-        <Section active={sectionActived === 3} onClick={() => setSectionActived(3)}>Dislikes</Section>
+        <Section $active={sectionActived === 1} onClick={() => setSectionActived(1)} >Posts</Section>
+        <Section $active={sectionActived === 2} onClick={() => setSectionActived(2)} >Likes</Section>
+        <Section $active={sectionActived === 3} onClick={() => setSectionActived(3)}>Dislikes</Section>
       </Sections>
 
       {postsToShow().map(data => <Post key={data.id} post={data} />)}
@@ -96,10 +111,10 @@ const Section = styled.div`
   padding: 15px 0;
   cursor: pointer;
 
-  border-bottom: ${props => props.active ? '2px solid rgba(56, 23, 122, 0.8)' : '2px solid rgb(255, 255, 255)'};
+  border-bottom: ${props => props.$active ? '2px solid rgba(56, 23, 122, 0.8)' : '2px solid rgb(255, 255, 255)'};
 
   &:hover{
-    border-bottom: ${props => props.active ? '2px solid rgba(56, 23, 122, 0.8)' : '2px solid rgba(56, 23, 122, 0.3)'};
+    border-bottom: ${props => props.$active ? '2px solid rgba(56, 23, 122, 0.8)' : '2px solid rgba(56, 23, 122, 0.3)'};
   }
 `
 
@@ -138,10 +153,19 @@ const InfoUser = styled.div`
 const FollowersCount = styled.p`
   color: rgba(0,0,0,0.7);
   margin-right: 10px;
+
+  &:hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
 `
 
 const FollowingCount = styled.p`
   color: rgba(0,0,0,0.7);
+  &:hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
 `
 
 const FollowBtn = styled.button`

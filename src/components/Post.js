@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import {useSelector, useDispatch} from 'react-redux'
 
 import {addVotePost} from '../features/postsFeature.js'
+import {addUserActionsToPostFirestore} from '../features/thunks.js'
 
 import {ReactComponent as Voted} from '../assets/voted.svg'
 
@@ -13,12 +14,16 @@ import OptionsPost from './OptionsPost.js'
 import {Link} from 'react-router-dom'
 
 const Post = ({post}) => {
-
   const dispatch = useDispatch()
   const user = useSelector(state => state.users.users).find(user => user.id === post.user_id)
   const currentUser = useSelector(state => state.users.actual_user)
+  const voted = post.voters.find(option => `${option.id_user}` === `${currentUser}`)
 
-  const voted = post.voters.find(option => option.id_user === currentUser)
+
+  const sendVotePost = (optionId) => {
+    dispatch(addVotePost({id: post.id, newVote: {id_user: currentUser, id_option: optionId}}))
+    dispatch(addUserActionsToPostFirestore({id: post.id}))
+  }
 
   const generateOptions = () => {
     if (voted !== undefined) {
@@ -30,15 +35,16 @@ const Post = ({post}) => {
             $percentage={percentage}
           >
             {option.description}
-            {option.id === voted.id_option ? <VotedIcon /> : <></>}
+            {option.id === voted.id_option && <VotedIcon />}
             <Percentage>{Math.round(percentage)}%</Percentage>
           </OptionVoted>
         )
       })
     } else {
-      return post.options.map(option => <Option key={option.id} onClick={() => dispatch(addVotePost({id: post.id, newVote: {id_user: currentUser, id_option: option.id}}))}>{option.description}</Option>)
+      return post.options.map(option => <Option key={option.id} onClick={() => sendVotePost(option.id)}>{option.description}</Option>)
     }
   }
+
 
   const formatDate = () => {
     const date = new Date(post.date)

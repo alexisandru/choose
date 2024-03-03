@@ -1,12 +1,20 @@
 import {createSlice} from '@reduxjs/toolkit'
 import data from '../assets/posts.json'
 
-const initialState = data.posts
+
+const initialState = []
 
 const postsSlice = createSlice({
   name: "posts",
   initialState,
   reducers: {
+    addAllPostsFromFirestore: (_, action) => {
+      console.log('addAllPosts')
+      return [...action.payload]
+    },
+    addOnePost: (state, action) => {
+      return [action.payload, ...state]
+    },
     addPost: (state, action) => {
       let newPost = action.payload
       newPost = {
@@ -17,6 +25,8 @@ const postsSlice = createSlice({
         total_votes: 0,
         date: Date.now()
       }
+
+
 
       if (state.length === 0) {
         return [
@@ -118,6 +128,6 @@ const postsSlice = createSlice({
 }
 )
 
-export const {addPost, deletePost, addVotePost, addLike, addDislike} = postsSlice.actions
+export const {addAllPostsFromFirestore, addOnePost, addPost, deletePost, addVotePost, addLike, addDislike} = postsSlice.actions
 
 export default postsSlice.reducer

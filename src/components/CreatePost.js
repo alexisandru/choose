@@ -6,6 +6,8 @@ import CreateOptions from './CreateOptions.js'
 import {useDispatch, useSelector} from 'react-redux'
 import {addPost} from '../features/postsFeature.js'
 
+import { addPostToFirestore } from '../features/thunks.js'
+
 const CreatePost = () => {
   const textareaRef = useRef()
   const dispatch = useDispatch()
@@ -15,10 +17,11 @@ const CreatePost = () => {
   const [clearOptionsInputs, setClearOptionsInputs] = useState(false)
   const [showOptions, setShowOptions] = useState(false)
   const [post, setPost] = useState({
-    user_id: currentUser,
+    user_id: "",
     description: "",
     options: []
   })
+
 
   const changeHeight = () => {
     textareaRef.current.style.height = "auto"
@@ -27,7 +30,7 @@ const CreatePost = () => {
 
   const handleChangeText = (e) => {
     changeHeight()
-    setPost({...post, description: e.target.value});
+    setPost({...post, user_id: currentUser, description: e.target.value});
   }
 
 
@@ -40,6 +43,7 @@ const CreatePost = () => {
 
   const sendPost = () => {
     dispatch(addPost(post))
+    dispatch(addPostToFirestore())
     setClearOptionsInputs(prev => !prev)
     setShowOptions(false)
     setPost({
