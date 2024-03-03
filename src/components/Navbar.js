@@ -16,7 +16,6 @@ import {signOut} from 'firebase/auth'
 const Navbar = () => {
   const currentUser = useSelector(state => state.users.actual_user)
   const user = useSelector(state => state.users.users).find(user => user.id === currentUser)
-  console.log(user)
 
   const logout = async () => {
     await signOut(auth)
@@ -28,7 +27,7 @@ const Navbar = () => {
       <Dropdown>
         <DropdownBtn>
           <UserIcon />
-          alexis
+          {user && user.name.split(" ")[0]}
         </DropdownBtn>
         <DropdownMenu>
           <DropdownItem to={`/user/${currentUser}`}><ProfileIcon />Profile</DropdownItem>
