@@ -14,7 +14,7 @@ const store = configureStore({reducer: allReducers})
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>
-    <HashRouter basename="/choose">
+    <HashRouter basename="/">
       <App />
     </HashRouter>
   </Provider>

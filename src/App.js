@@ -34,7 +34,7 @@ function App() {
       if (user) {
         dispatch(fetchUsersFirestore())
         dispatch(fetchPostsFirestore())
-        navigate('', {replace: true})
+        navigate('/', {replace: true})
       }
     })
 
@@ -56,8 +56,8 @@ function App() {
       {loading ? <Loader /> :
         <Routes>
           <Route element={<ProtectedRoute user={userLogged} />}>
-            <Route path="" element={<Main />} >
-              <Route path="" element={<Feed />} />
+            <Route path="/" element={<Main />} >
+              <Route path="/" element={<Feed />} />
               <Route path="/user/:id" element={<Profile />} />
             </Route>
           </Route>
