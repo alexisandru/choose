@@ -115,6 +115,9 @@ const ModalContent = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
+  @media screen and (max-width: 400px) {
+    width: 95%;
+  }
 `
 const Sections = styled.div`
   width: 95%;
