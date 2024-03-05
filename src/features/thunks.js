@@ -25,7 +25,6 @@ export const listenerPostsFirestore = createAsyncThunk(
     const q = query(collection(db, "posts"), orderBy("id", "desc"))
     onSnapshot(q, (doc) => {
       const posts = doc.docs.map(docc => docc.data())
-      console.log("query onsnapshot", posts)
       thunkAPI.dispatch(addAllPostsFromFirestore(posts))
     })
   }
@@ -58,8 +57,7 @@ export const addPostToFirestore = createAsyncThunk(
   'posts/addPostToFirestore',
   async (_, thunkAPI) => {
     const {posts} = await thunkAPI.getState()
-    const newPostRef = await addDoc(collection(db, "posts"), posts[0])
-    console.log(newPostRef)
+    await addDoc(collection(db, "posts"), posts[0])
   }
 )
 
@@ -72,7 +70,6 @@ export const addReactionUserToFirestore = createAsyncThunk(
 
     const queryUser = query(collection(db, "users"), where("id", "==", id))
     const refQuery = await getDocs(queryUser)
-    console.log("user reac", refQuery, userSearch)
 
     const queryUpdate = doc(db, "users", refQuery.docs[0].id)
     await updateDoc(queryUpdate, {
@@ -112,9 +109,7 @@ export const deletePostFirestore = createAsyncThunk(
     const queryPost = query(collection(db, "posts"), where("id", "==", id))
     const refQuery = await getDocs(queryPost)
 
-    const queryDelete = await deleteDoc(doc(db, "posts", refQuery.docs[0].id))
-    console.log("deleted", queryDelete)
-
+    await deleteDoc(doc(db, "posts", refQuery.docs[0].id))
   }
 )
 
@@ -122,7 +117,6 @@ export const updateLikesDislikesUsers = createAsyncThunk(
   'users/updateLikesDislikesUsers',
   async (action, thunkAPI) => {
     const {id} = action
-    console.log(id)
     const usersQuery = query(collection(db, "users"),
       or(
         where("likes", "array-contains", id),
@@ -135,7 +129,6 @@ export const updateLikesDislikesUsers = createAsyncThunk(
       const {users} = await thunkAPI.getState()
       const user = await users.users.find(user => user.id === documento.data().id)
 
-      console.log(documento)
 
       const queryUser = doc(db, "users", documento.id)
       await updateDoc(queryUser, {

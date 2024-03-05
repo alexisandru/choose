@@ -39,6 +39,10 @@ const Container = styled.div`
 const OptionsIcon = styled(Options)`
   width: 25px;
   height: auto;
+
+  & > path {
+    stroke: ${props => props.theme.icon};
+  }
 `
 
 const Dropdown = styled.div`
@@ -47,12 +51,12 @@ const Dropdown = styled.div`
   z-index: 2;
   right: 0;
   width: max-content;
-  background-color: rgb(255, 255, 255);
+  background-color: ${props => props.theme.surface};
   border-radius: 5px; 
 
   ${Container}:hover & {
     display: block;
-    box-shadow: 1px 1px 10px 1px rgba(0,0,0,0.5);
+    box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.8);
   }
 `
 
@@ -71,5 +75,8 @@ const DeleteIcon = styled(Delete)`
   width: 18px;
   height: auto;
   margin-right: 10px;
+  & > path {
+    stroke: ${props => props.theme.icon};
+  }
 
 `

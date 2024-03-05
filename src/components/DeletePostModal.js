@@ -45,11 +45,11 @@ const Container = styled.div`
   top: 0;
   left: 0;
   overflow: auto;
-  background-color: rgba(0,0,0,0.3);
+  background-color: rgba(0,0,0,0.5);
 `
 
 const ModalContent = styled.div`
-  background-color: rgb(255, 255, 255);
+  background-color: ${props => props.theme.surface};
   width: max-content;
   padding: 30px;
   border-radius: 10px;
@@ -67,11 +67,12 @@ const Buttons = styled.div`
 `
 
 const Button = styled.button`
-  background-color: rgb(255, 255, 255);
-  border: 2px solid rgba(0, 0, 0, 0.2);
+  background-color: ${props => props.theme.surface};
+  border: 2px solid ${props => props.theme.border_options};
   border-radius: 7px;
   padding: 10px 20px;
   cursor: pointer;
+  color: ${props => props.theme.color};
 
   &:hover {
     background-color: rgba(0,0,0,0.1);
@@ -79,11 +80,12 @@ const Button = styled.button`
 `
 
 const DeleteButton = styled(Button)`
-  background-color: rgba(201, 52, 57, 0.9);
-  border: 1px solid rgb(199, 36, 41);
-  color: rgb(255, 255, 255);
+  background-color: ${props => props.theme.error};
+  border: 1px solid ${props => props.theme.error};
+  color: ${props => props.theme.color};
 
   &:hover {
-    background-color: rgb(201, 52, 57);
+    background-color: ${props => props.theme.error};
+    filter: brightness(90%);
   }
 `

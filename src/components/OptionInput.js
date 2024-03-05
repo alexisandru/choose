@@ -43,9 +43,11 @@ const Option = styled.input`
   border: 1px solid rgba(0,0,0,0.2);
   outline: none;
   width: 100%;
+  background-color: ${props => props.theme.input_background};
+  color: ${props => props.theme.color};
 
   &:focus {
-    border: 1px solid rgba(0,0,0,0.5);
+    border: 1px solid rgba(0, 0, 0, 0.5);
   }
   
   @media screen and (max-width: 400px) {
@@ -60,7 +62,7 @@ const Container = styled.div`
 
 const Counter = styled.span`
   align-self: flex-end;
-  color: rgba(0, 0, 0, 0.6);
+  color: ${props => props.theme.color};
   font-size: 0.75em;
   @media screen and (max-width: 400px) {
     font-size: 0.7em;

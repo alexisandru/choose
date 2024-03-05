@@ -46,12 +46,13 @@ const ModalFollowers = ({user, open, close, section}) => {
 export default ModalFollowers
 
 const Close = styled.button`
-  background-color: rgb(255, 255, 255);
-  border: 2px solid rgba(0, 0, 0, 0.2);
   border-radius: 7px;
   padding: 10px 30px;
   cursor: pointer;
   font-size: 1em;
+  background-color: ${props => props.theme.surface};
+  border: 2px solid ${props => props.theme.border_options};
+  color: ${props => props.theme.color};
 
   &:hover {
     background-color: rgba(0,0,0,0.1);
@@ -80,7 +81,7 @@ const Photo = styled.div`
 `
 
 const Name = styled(Link)`
-  color: rgba(0,0,0,0.8);
+color: ${props => props.theme.color};
   margin-left: 10px;
   font-weight: 500;
   text-decoration: none;
@@ -106,12 +107,12 @@ const Container = styled.div`
 `
 
 const ModalContent = styled.div`
-  background-color: rgb(255, 255, 255);
+  background-color: ${props => props.theme.surface};
   width: 40%;
   height: 80%;
   padding: 30px;
   border-radius: 10px;
-  box-shadow: 1px 1px 10px 1px rgba(0,0,0,0.3);
+  box-shadow: 1px 1px 10px 10px rgba(0,0,0,0.3);
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -135,13 +136,15 @@ const Section = styled.div`
   align-items: center;
   justify-content: center;
 
+
+color: ${props => props.theme.color};
   width: 100%;
   padding: 15px 0;
   cursor: pointer;
 
-  border-bottom: ${props => props.active ? '2px solid rgba(56, 23, 122, 0.8)' : '2px solid rgb(255, 255, 255)'};
+  border-bottom: ${props => props.active ? `2px solid ${props.theme.primary}` : `2px solid ${props.theme.body}`};
 
   &:hover{
-    border-bottom: ${props => props.active ? '2px solid rgba(56, 23, 122, 0.8)' : '2px solid rgba(56, 23, 122, 0.3)'};
+    border-bottom: ${props => props.active ? `2px solid ${props.theme.primary}` : `2px solid ${props.theme.border_options}`};
   }
 `

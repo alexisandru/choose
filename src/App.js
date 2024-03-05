@@ -18,11 +18,15 @@ import {useDispatch, useSelector} from 'react-redux'
 import {addIdCurrentUser} from './features/usersFeature.js'
 import {addNewUserToFirebase, fetchUsersFirestore, fetchPostsFirestore} from './features/thunks.js'
 
+import {ThemeProvider} from 'styled-components'
+import {darkTheme, lightTheme, GlobalStyle} from './theme'
+
 function App() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
   const users = useSelector(state => state.users.users)
+  const theme = useSelector(state => state.theme.darkEnabled)
 
   const [loading, setLoading] = useState(true)
   const [userLogged, setUserLogged] = useState(null)
@@ -50,23 +54,26 @@ function App() {
     }
   }, [userLogged, dispatch, users.length])
 
-
+  console.log("theme", theme)
   return (
-    <div>
-      {loading ? <Loader /> :
-        <Routes>
-          <Route element={<ProtectedRoute user={userLogged} />}>
-            <Route path="/" element={<Main />} >
-              <Route path="/" element={<Feed />} />
-              <Route path="/user/:id" element={<Profile />} />
+    <ThemeProvider theme={theme ? darkTheme : lightTheme}>
+      <div>
+        <GlobalStyle />
+        {loading ? <Loader /> :
+          <Routes>
+            <Route element={<ProtectedRoute user={userLogged} />}>
+              <Route path="/" element={<Main />} >
+                <Route path="/" element={<Feed />} />
+                <Route path="/user/:id" element={<Profile />} />
+              </Route>
             </Route>
-          </Route>
-          <Route path="/login" element={<Login />} />
-          <Route path="*" element={<ErrorPage />} />
-        </Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="*" element={<ErrorPage />} />
+          </Routes>
 
-      }
-    </div>
+        }
+      </div>
+    </ThemeProvider>
   );
 }
 

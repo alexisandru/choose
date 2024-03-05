@@ -15,7 +15,6 @@ const Main = () => {
     const unsubscribe = dispatch(listenerPostsFirestore())
 
     return () => unsubscribe()
-
   }, [dispatch])
 
   return (

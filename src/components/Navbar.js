@@ -5,35 +5,44 @@ import {ReactComponent as User} from '../assets/profile.svg'
 
 import {ReactComponent as Profile} from '../assets/profile_circle.svg'
 import {ReactComponent as Logout} from '../assets/logout.svg'
+import {ReactComponent as Moon} from '../assets/moon.svg'
+import {ReactComponent as Sun} from '../assets/sun.svg'
 
 import {Link} from 'react-router-dom'
-import {useSelector} from 'react-redux'
+import {useSelector, useDispatch} from 'react-redux'
+import {setTheme} from '../features/themeFeature'
 
 //firebase
 import {auth} from '../firebase.js'
 import {signOut} from 'firebase/auth'
 
 const Navbar = () => {
+  const dispatch = useDispatch()
   const currentUser = useSelector(state => state.users.actual_user)
   const user = useSelector(state => state.users.users).find(user => user.id === currentUser)
+  const theme = useSelector(state => state.theme.darkEnabled)
 
   const logout = async () => {
     await signOut(auth)
   }
 
+
   return (
     <Container>
       <Title to="/">Choose</Title>
-      <Dropdown>
-        <DropdownBtn>
-          <UserIcon />
-          {user && user.name.split(" ")[0]}
-        </DropdownBtn>
-        <DropdownMenu>
-          <DropdownItem to={`/user/${currentUser}`}><ProfileIcon />Profile</DropdownItem>
-          <DropdownItem onClick={() => logout()}><LogoutIcon />Logout</DropdownItem>
-        </DropdownMenu>
-      </Dropdown>
+      <div style={{display: 'flex', alignItems: 'center'}}>
+        {theme ? <SunIcon onClick={() => dispatch(setTheme())} /> : <MoonIcon onClick={() => dispatch(setTheme())} />}
+        <Dropdown>
+          <DropdownBtn>
+            <UserIcon />
+            {user && user.name.split(" ")[0]}
+          </DropdownBtn>
+          <DropdownMenu>
+            <DropdownItem to={`/user/${currentUser}`}><ProfileIcon />Profile</DropdownItem>
+            <DropdownItem onClick={() => logout()}><LogoutIcon />Logout</DropdownItem>
+          </DropdownMenu>
+        </Dropdown>
+      </div>
     </Container >
   )
 }
@@ -55,7 +64,7 @@ const Title = styled(Link)`
   font-weight: bold;
   text-decoration: none;
   font-size: 2.5em;
-  color: rgba(0,0,0,0.9);
+  color: ${props => props.theme.color};
 `
 
 const Dropdown = styled.div`
@@ -71,13 +80,13 @@ const DropdownMenu = styled.div`
   position: absolute;
   z-index: 1;
   width: max-content;
-  background-color: rgb(255, 255, 255);
+  background-color: ${props => props.theme.surface};
   border-radius: 5px;
   margin-left: -10px;
 
   ${Dropdown}:hover & {
     display: block;
-    box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.3);
+    box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.8);
   }
 
 
@@ -94,6 +103,7 @@ const DropdownBtn = styled.div`
   align-self: center;
   justify-content: center;
 
+  color: ${props => props.theme.color};
   ${Dropdown}:hover & {
     background-color: rgba(0, 0, 0, 0.07);  
   }
@@ -107,7 +117,7 @@ const DropdownItem = styled(Link)`
   align-items: center;
   padding: 10px 40px 10px 20px;
   text-decoration: none;
-  color: rgb(0,0,0);
+  color: ${props => props.theme.color};
 
   &:hover {
     cursor: pointer;
@@ -120,16 +130,60 @@ const UserIcon = styled(User)`
   width: 20px;
   height: auto;
   margin-right: 5px;
+  fill: ${props => props.theme.icon};
+  & > path {
+    stroke: ${props => props.theme.icon};
+  }
 `
+
+
+const MoonIcon = styled(Moon)`
+  width: 30px;
+  height: auto;
+  padding: 3px;
+  border-radius: 50%;
+
+  & > path {
+    stroke: ${props => props.theme.icon};
+  }
+
+  &:hover {
+    background-color: rgba(0,0,0,0.1);
+    cursor: pointer;
+  }
+`
+const SunIcon = styled(Sun)`
+  width: 30px;
+  height: auto;
+  padding: 3px;
+  border-radius: 50%;
+
+  & > path {
+    stroke: ${props => props.theme.icon};
+  }
+
+  &:hover {
+    background-color: rgba(0,0,0,0.1);
+    cursor: pointer;
+  }
+`
+
 
 const ProfileIcon = styled(Profile)`
   width: 20px;
   height: auto;
   margin-right: 5px;
+
+  & > path {
+    stroke: ${props => props.theme.icon};
+  }
 `
 
 const LogoutIcon = styled(Logout)`
   width: 20px;
   height: auto;
   margin-right: 5px;
+  & > path {
+    stroke: ${props => props.theme.icon};
+  }
 `

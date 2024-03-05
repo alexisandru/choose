@@ -62,17 +62,20 @@ const Button = styled.div`
 const LikeIcon = styled(Like)`
   width: 23px;
   height: auto;
-  fill: ${props => props.$active ? 'rgba(56, 23, 122, 0.5)' : ''};
-    &> path {
-    stroke: ${props => props.$active ? 'rgba(56, 23, 122, 0.6)' : ''};
+  margin-right: 5px;
+  fill: ${props => props.$active ? props.theme.primary : ''};
+  &> path {
+ //   stroke: ${props => props.theme.surface};
+    stroke: ${props => props.$active ? props.theme.surface : props.theme.icon};
   }
 `
 
 const DislikeIcon = styled(Dislike)`
-  width: 23px;
+width: 23px;
   height: auto;
-  fill: ${props => props.$active ? 'rgba(168, 50, 50, 0.6)' : ''};
-  &>  path {
-    stroke: ${props => props.$active ? 'rgba(168, 50, 50, 1)' : ''};
-  }
+  margin-right: 5px;
+fill: ${props => props.$active ? props.theme.error : ''};
+  &> path {
+    stroke: ${props => props.$active ? props.theme.surface : props.theme.icon};
+}
 ` 

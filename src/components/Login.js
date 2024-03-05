@@ -41,13 +41,13 @@ const Container = styled.div`
   align-items:center;
   flex-direction: column;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.03);
 `
 
 const Title = styled.h1`
   font-family: 'Dancing Script', cursive;
   font-weight: bold;
   font-size: 7em;
+  color: ${props => props.theme.color};
   @media screen and (max-width: 400px) {
     font-weight: 500;
   }
@@ -56,16 +56,17 @@ const Title = styled.h1`
 const LoginButton = styled.button`
   display: flex;
   align-items: center;
-  background-color: rgb(255, 255, 255);
-  border: 1px solid rgba(0,0,0,0.3);
+  background-color: ${props => props.theme.primary};
+  color: ${props => props.theme.color};
   padding: 10px 20px;
   border-radius: 5px;
   font-size: 1em;
   margin-top: 100px;
   box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.1);
+  border: 1px solid ${props => props.theme.primary};
 
   &:hover {
-    background-color: rgba(0, 0, 0, 0.05);
+    filter: brightness(95%);
     cursor: pointer;
   }
 `
@@ -75,6 +76,17 @@ const GoogleIcon = styled(Google)`
   width: 20px;
   height: auto;
   margin-right: 10px;
+
+  & > g {
+
+
+    & > g {
+
+    fill: ${props => props.theme.icon};
+  }
+  }
+
+
 `
 
 

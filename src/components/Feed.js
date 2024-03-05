@@ -51,7 +51,7 @@ const Sections = styled.div`
   margin-top: 10px;
   display: flex;
   justify-content: space-around;
-  border-bottom: 1px solid rgba(0,0,0,0.2);
+  border-bottom: 1px solid rgba(0,0,0, 0.3);
   
   @media screen and (max-width: 400px) {
     width: 95%;
@@ -63,13 +63,15 @@ const Section = styled.div`
   align-items: center;
   justify-content: center;
 
+  color: ${props => props.theme.color};
+
   width: 100%;
   padding: 15px 0;
   cursor: pointer;
 
-  border-bottom: ${props => props.$active === 1 ? '2px solid rgba(56, 23, 122, 0.8)' : '2px solid rgb(255, 255, 255)'};
+  border-bottom: ${props => props.$active === 1 ? `2px solid ${props.theme.primary}` : `2px solid ${props.theme.body}`};
 
   &:hover{
-    border-bottom: ${props => props.$active === 1 ? '2px solid rgba(56, 23, 122, 0.8)' : '2px solid rgba(56, 23, 122, 0.3)'};
+    border-bottom: ${props => props.$active === 1 ? `2px solid ${props.theme.primary}` : `2px solid ${props.theme.border_options}`};
   }
 `

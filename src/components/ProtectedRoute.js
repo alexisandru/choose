@@ -1,5 +1,4 @@
-import {useNavigate, Outlet, Navigate} from 'react-router-dom'
-import {auth} from '../firebase.js'
+import {Outlet, Navigate} from 'react-router-dom'
 
 const ProtectedRoute = ({user, children}) => {
   if (user === null) {

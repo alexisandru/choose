@@ -110,12 +110,13 @@ const Section = styled.div`
   width: 100%;
   padding: 15px 0;
   cursor: pointer;
-
-  border-bottom: ${props => props.$active ? '2px solid rgba(56, 23, 122, 0.8)' : '2px solid rgb(255, 255, 255)'};
+  border-bottom: ${props => props.$active ? `2px solid ${props.theme.primary}` : `2px solid ${props.theme.body}`};
 
   &:hover{
-    border-bottom: ${props => props.$active ? '2px solid rgba(56, 23, 122, 0.8)' : '2px solid rgba(56, 23, 122, 0.3)'};
+    border-bottom: ${props => props.$active ? `2px solid ${props.theme.primary}` : `2px solid ${props.theme.border_options}`};
   }
+
+  color: ${props => props.theme.color};
 `
 
 const Container = styled.div`
@@ -136,7 +137,7 @@ const Header = styled.div`
 const Username = styled.h1`
   margin-bottom: 20px;
   font-size: 3em;
-  color: rgba(0,0,0,0.9);
+  color: ${props => props.theme.color};
 
   @media screen and (max-width: 400px) {
     text-align: center;
@@ -151,7 +152,7 @@ const InfoUser = styled.div`
 `
 
 const FollowersCount = styled.p`
-  color: rgba(0,0,0,0.7);
+  color: ${props => props.theme.color};
   margin-right: 10px;
 
   &:hover {
@@ -161,7 +162,7 @@ const FollowersCount = styled.p`
 `
 
 const FollowingCount = styled.p`
-  color: rgba(0,0,0,0.7);
+  color: ${props => props.theme.color};
   &:hover {
     cursor: pointer;
     text-decoration: underline;
@@ -170,7 +171,7 @@ const FollowingCount = styled.p`
 
 const FollowBtn = styled.button`
   background-color:rgba(56, 23, 122, 0.8);
-  color: rgb(255, 255, 255);
+  color: ${props => props.theme.color};
   padding: 10px 20px;
   margin-top: 10px;
   border-radius: 5px;
@@ -198,9 +199,9 @@ const OkIcon = styled(Ok)`
   width: 15px;
   height: auto;
   margin-left: 5px;
-  fill: rgb(255, 255, 255);
+  fill: ${props => props.theme.icon};
   & > path {
-    stroke: rgb(255, 255, 255);
+    stroke: ${props => props.theme.icon};
   }
 `
 
@@ -209,8 +210,8 @@ const CloseIcon = styled(Close)`
   width: 15px;
   height: auto;
   margin-left: 5px;
-  fill: rgb(255, 255, 255);
+  fill: ${props => props.theme.icon};
   & > path {
-    stroke: rgb(255, 255, 255);
+    stroke: ${props => props.theme.icon};
   }
 `

@@ -13,6 +13,7 @@ import OptionsPost from './OptionsPost.js'
 
 import {Link} from 'react-router-dom'
 
+
 const Post = ({post}) => {
   const dispatch = useDispatch()
   const user = useSelector(state => state.users.users).find(user => user.id === post.user_id)
@@ -106,6 +107,9 @@ const Container = styled.div`
   margin-top: 15px;
   box-shadow: rgba(0,0,0,0.24) 0px 3px 8px;
 
+  background-color: ${({theme}) => theme.surface};
+  color: ${({theme}) => theme.color};
+
   @media screen and (max-width: 400px) {
     width: 95%;
   }
@@ -130,7 +134,7 @@ const Photo = styled.div`
 `
 
 const Name = styled(Link)`
-  color: rgba(0,0,0,0.8);
+  color: ${({theme}) => theme.color};
   margin-left: 10px;
   font-weight: 500;
   text-decoration: none;
@@ -148,17 +152,17 @@ const Options = styled.div`
 `
 
 const OptionVoted = styled.div`
-  border: 1px solid rgba(0,0,0,0.2);
   border-radius: 5px;
   margin-top: 5px;
   padding: 5px;
   font-size: 0.9em;
+  overflow: hidden;
 
-  border: 2px solid rgba(56, 23, 122, 0.5);
+border: 2px solid ${props => props.theme.border_options};
   display: flex;
   align-items: center;
   
- background: linear-gradient(to right, rgba(56, 23, 122, 0.2) ${props => props.$percentage}%, rgb(255, 255, 255) 0);
+  background: linear-gradient(to right, ${props => props.theme.primary} ${props => props.$percentage}%, ${props => props.theme.surface_background} 0);
 `
 
 const Option = styled.div`
@@ -166,11 +170,10 @@ const Option = styled.div`
   margin-top: 5px;
   padding: 5px;
   font-size: 0.9em;
-
-  border: 2px solid rgba(56, 23, 122, 0.6);
+  border: 2px solid ${props => props.theme.primary};
 
   &:hover {
-    border: 2px solid rgb(56, 23, 122);
+    border: 2px solid ${props => props.theme.border_options};
     cursor: pointer;
     background-color: rgba(0, 0, 0, 0.05);
   }
@@ -182,7 +185,6 @@ const Info = styled.div`
   justify-content: space-between;
   font-size: 0.8em;
   margin-top: 10px;
-  color: rgba(0, 0, 0, 0.7);
 `
 
 

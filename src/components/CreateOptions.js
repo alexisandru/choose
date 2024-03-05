@@ -96,6 +96,10 @@ const PlusIcon = styled(Plus)`
   padding: 15px;
   cursor: pointer;
   border-radius: 50%;
+  
+    fill: ${props => props.theme.icon};
+
+
   &:hover {
     background-color: rgba(0,0,0,0.1);
   }

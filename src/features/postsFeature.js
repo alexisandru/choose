@@ -1,5 +1,4 @@
 import {createSlice} from '@reduxjs/toolkit'
-import data from '../assets/posts.json'
 
 
 const initialState = []

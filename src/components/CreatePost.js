@@ -6,7 +6,7 @@ import CreateOptions from './CreateOptions.js'
 import {useDispatch, useSelector} from 'react-redux'
 import {addPost} from '../features/postsFeature.js'
 
-import { addPostToFirestore } from '../features/thunks.js'
+import {addPostToFirestore} from '../features/thunks.js'
 
 const CreatePost = () => {
   const textareaRef = useRef()
@@ -91,6 +91,7 @@ const Container = styled.div`
   margin-top: 10px;
   box-shadow: rgba(0,0,0,0.24) 0px 3px 8px;
 
+  background-color: ${props => props.theme.surface};
   display: flex;
   
   @media screen and (max-width: 400px) {
@@ -108,29 +109,34 @@ const Description = styled.textarea`
   width: 100%;
   margin-bottom: 10px;
   font-size: 1em;
-  outline-color: rgba(0,0,0,0.2);
+  color: ${props => props.theme.color};
+  outline-color: rgba(0,0,0,0.5);
   resize: none;
   border: none;
   padding: 5px;
   max-height: 300px;
+
+  background-color: ${props => props.theme.input_background};
+  border-radius: 5px;
 `
 
 
 const BtnPost = styled.button`
-  padding: 5px 20px;
-  border: 1px solid rgba(0,0,0,0.2);
+  padding: 10px 20px;
+  border: 1px solid ${props => props.theme.primary};
   border-radius: 5px;
-  background-color: rgba(56, 23, 122, 0.8);
-  color: rgb(255,255,255);
-  cursor: pointer;
+  background-color: ${props => props.theme.primary};
+  color: rgba(255, 255, 255, 0.87);
+  font-size: 1em;
+cursor: pointer;
 
   &:hover {
-    background-color: rgba(56, 23, 122, 0.7);
+    filter: brightness(95%);
   }
 
   &:disabled {
     cursor: auto;
-    background-color: rgba(56, 23, 122, 0.2);
+    filter: brightness(70%);
   }
   
   @media screen and (max-width: 400px) {
